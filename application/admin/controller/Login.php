@@ -9,6 +9,11 @@ class Login extends \think\Controller
         return view('login');
     }
 
+    public function login()
+    {
+
+    }
+
     public function hello($name = 'ThinkPHP5')
     {
         echo 456;

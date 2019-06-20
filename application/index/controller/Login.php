@@ -2,14 +2,11 @@
 namespace app\index\controller;
 use Db;
 
-class index extends \think\Controller
+class Login extends \think\Controller
 {
     public function index()
     {
-        $sql="select * from user";
-        $arr=Db::query($sql);
-        echo 678;
-        var_dump($arr);
+        return view('login');
     }
 
     public function hello($name = 'ThinkPHP5')

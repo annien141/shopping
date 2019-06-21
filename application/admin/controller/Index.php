@@ -6,10 +6,9 @@ class index extends \think\Controller
 {
     public function index()
     {
-        $sql="select * from user";
+        $sql="select * from admin";
         $arr=Db::query($sql);
-        echo 678;
-        var_dump($arr);
+        return view('index',["arr"=>$arr]);
     }
 
     public function hello($name = 'ThinkPHP5')

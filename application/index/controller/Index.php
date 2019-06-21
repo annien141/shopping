@@ -8,8 +8,8 @@ class index extends \think\Controller
     {
         $sql="select * from user";
         $arr=Db::query($sql);
-        echo 678;
-        var_dump($arr);
+        echo "189";
+        return view('index',["arr"=>$arr]);
     }
 
     public function hello($name = 'ThinkPHP5')

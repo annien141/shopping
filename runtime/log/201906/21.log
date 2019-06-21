@@ -3439,3 +3439,481 @@
 )
 [ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html [ array (
 ) ]
+---------------------------------------------------------------
+[2019-06-21T11:29:14+08:00] ::1 GET localhost/shopping/public/index.php/admin/login/index
+[运行时间：0.042591s] [吞吐率：23.48req/s] [内存消耗：1,439.28kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; AdminCode=u1gN',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html [ array (
+) ]
+---------------------------------------------------------------
+[2019-06-21T11:30:56+08:00] ::1 GET localhost/shopping/public/index.php/admin/login/index
+[运行时间：0.026442s] [吞吐率：37.82req/s] [内存消耗：1,439.56kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; AdminCode=GelS',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html [ array (
+) ]
+---------------------------------------------------------------
+[2019-06-21T11:53:28+08:00] ::1 GET localhost/shopping/public/index.php/admin/login/index
+[运行时间：0.042799s] [吞吐率：23.37req/s] [内存消耗：1,440.66kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; AdminCode=1CpE',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html [ array (
+) ]
+---------------------------------------------------------------
+[2019-06-21T11:54:50+08:00] ::1 GET localhost/shopping/public/index.php/admin/login/login?name1=aaa&password1=111
+[运行时间：0.148772s] [吞吐率：6.72req/s] [内存消耗：2,043.35kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/login/index',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'x-requested-with' => 'XMLHttpRequest',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'name1' => 'aaa',
+  'password1' => '111',
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.107153s ] mysql:host=47.102.45.98;dbname=shopping;charset=utf8
+[ sql ] [ SQL ] select * from admin where aname='aaa' and apassword='111' [ RunTime:0.011133s ]
+---------------------------------------------------------------
+[2019-06-21T11:54:53+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/index.html
+[运行时间：0.072045s] [吞吐率：13.88req/s] [内存消耗：2,051.47kb] [文件加载：66]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/login/index',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ sql ] [ DB ] CONNECT:[ UseTime:0.023526s ] mysql:host=47.102.45.98;dbname=shopping;charset=utf8
+[ sql ] [ SQL ] select * from user [ RunTime:0.015645s ]
+---------------------------------------------------------------
+[2019-06-21T11:59:05+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/index.html
+[运行时间：0.074661s] [吞吐率：13.39req/s] [内存消耗：2,200.17kb] [文件加载：70]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/login/index',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html [ array (
+  0 => 'arr',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.024664s ] mysql:host=47.102.45.98;dbname=shopping;charset=utf8
+[ sql ] [ SQL ] select * from admin [ RunTime:0.010479s ]
+---------------------------------------------------------------
+[2019-06-21T11:59:17+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/index.html
+[运行时间：0.060105s] [吞吐率：16.64req/s] [内存消耗：2,200.20kb] [文件加载：70]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/login/index',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html [ array (
+  0 => 'arr',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.018421s ] mysql:host=47.102.45.98;dbname=shopping;charset=utf8
+[ sql ] [ SQL ] select * from admin [ RunTime:0.011652s ]
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/index.html
+[运行时间：0.128917s] [吞吐率：7.76req/s] [内存消耗：2,240.10kb] [文件加载：70]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/login/index',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ VIEW ] D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html [ array (
+  0 => 'arr',
+) ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.067876s ] mysql:host=47.102.45.98;dbname=shopping;charset=utf8
+[ sql ] [ SQL ] select * from admin [ RunTime:0.014961s ]
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/css/base.css
+[运行时间：0.033809s] [吞吐率：29.58req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/css/frameStyle.css
+[运行时间：0.031732s] [吞吐率：31.51req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/framework/cframe.js
+[运行时间：0.027837s] [吞吐率：35.92req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/framework/frame.js
+[运行时间：0.024326s] [吞吐率：41.11req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:25+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/images/logo.png
+[运行时间：0.025205s] [吞吐率：39.67req/s] [内存消耗：1,384.52kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/fonts/iconfont.css
+[运行时间：0.038154s] [吞吐率：26.21req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/framework/jquery-1.11.3.min.js
+[运行时间：0.034798s] [吞吐率：28.74req/s] [内存消耗：1,384.52kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/layui/layui.js
+[运行时间：0.037394s] [吞吐率：26.74req/s] [内存消耗：1,384.49kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/js/base.js
+[运行时间：0.039541s] [吞吐率：25.29req/s] [内存消耗：1,384.48kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/layui/css/layui.css
+[运行时间：0.036853s] [吞吐率：27.13req/s] [内存消耗：1,385.05kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'css' => 'layui.css',
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/layui/layui.js
+[运行时间：0.024640s] [吞吐率：40.58req/s] [内存消耗：1,384.49kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/framework/cframe.js
+[运行时间：0.024919s] [吞吐率：40.13req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/css/frameStyle.css
+[运行时间：0.025975s] [吞吐率：38.50req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/css,*/*;q=0.1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/framework/frame.js
+[运行时间：0.026420s] [吞吐率：37.85req/s] [内存消耗：1,384.51kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/tgls/index.html
+[运行时间：0.026296s] [吞吐率：38.03req/s] [内存消耗：1,385.35kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)
+---------------------------------------------------------------
+[2019-06-21T12:01:26+08:00] ::1 GET localhost/shopping/public/index.php/admin/index/images/favicon.ico
+[运行时间：0.024248s] [吞吐率：41.24req/s] [内存消耗：1,384.86kb] [文件加载：65]
+[ info ] [ LANG ] D:\01\phpstudy\PHPTutorial\WWW\shopping\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'thinkphp_show_page_trace=0|0; PHPSESSID=eu5pumo3aipjqk14eh4cauvpj5; AdminCode=WpKx',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'referer' => 'http://localhost/shopping/public/index.php/admin/index/index.html',
+  'accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'cache-control' => 'no-cache',
+  'pragma' => 'no-cache',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+)

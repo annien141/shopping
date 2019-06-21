@@ -5,7 +5,7 @@ use think\Db;
 use think\db\Query;
 use think\Session;
 session_start();
-class Login extends \think\Controller
+class Login
 {
     public function index()
     {
@@ -14,9 +14,9 @@ class Login extends \think\Controller
 
     public function login()
     {
-        $name=input("get.name1");
+        $name=input("post.name1");
 //        var_dump($uname);die;
-        $password=input("get.password1");
+        $password=input("post.password1");
         $sql="select * from admin where aname='$name' and apassword='$password'";
         $arr=Db::query($sql);
         if(!empty($arr)){
@@ -32,9 +32,4 @@ class Login extends \think\Controller
         }
     }
 
-    public function hello($name = 'ThinkPHP5')
-    {
-        echo 456;
-        return 'hello,' . $name;
-    }
 }

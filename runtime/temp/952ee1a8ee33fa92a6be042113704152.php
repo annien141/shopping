@@ -1,4 +1,4 @@
-<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html";i:1561086933;}*/ ?>
+<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html";i:1561103518;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -203,6 +203,7 @@
                             name1: login,
                             password1: pwd
                         },
+                        type:"post",
                         dataType:"json",
                         success: function (result) {
                             if (result.status == "ok") {

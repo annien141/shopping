@@ -17,7 +17,13 @@ class Login extends \think\Controller
         $sql="select * from admin where aname='$name' and apassword='$password'";
         $arr=Db::query($sql);
         if(!empty($arr)){
-            echo "123";
+            $arr1=["code"=>"1","status"=>"ok","message"=>"登录成功"];
+            $type=json_encode($arr1);
+            echo $type;
+        }else{
+            $arr1=["code"=>"2","status"=>"error","message"=>"用户名密码错误"];
+            $type=json_encode($arr1);
+            echo $type;
         }
     }
 

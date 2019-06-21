@@ -1,3 +1,4 @@
+<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html";i:1561086933;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -10,14 +11,14 @@
     <meta http-equiv="expires" content="0">
 
     <title>管理系统登录</title>
-    <link rel="icon" href="__STATIC__/admin_login/images/favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" href="__STATIC__/admin_login/images/favicon.ico" type="image/x-icon"/>
-    <link href="__STATIC__/admin_login/css/default.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/shopping/public/static/admin_login/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/shopping/public/static/admin_login/images/favicon.ico" type="image/x-icon"/>
+    <link href="/shopping/public/static/admin_login/css/default.css" rel="stylesheet" type="text/css" />
     <!--必要样式-->
-    <link href="__STATIC__/admin_login/css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="__STATIC__/admin_login/css/demo.css" rel="stylesheet" type="text/css" />
-    <link href="__STATIC__/admin_login/css/loaders.css" rel="stylesheet" type="text/css" />
-    <script src="__STATIC__/admin_login/js/jquery-2.1.1.min.js"></script>
+    <link href="/shopping/public/static/admin_login/css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/shopping/public/static/admin_login/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="/shopping/public/static/admin_login/css/loaders.css" rel="stylesheet" type="text/css" />
+    <script src="/shopping/public/static/admin_login/js/jquery-2.1.1.min.js"></script>
 
 </head>
 <body>
@@ -31,25 +32,25 @@
         <div class='login_fields__user'>
             <div class='icon'>
 
-                <img alt="" src='__STATIC__/admin_login/img/user_icon_copy.png'>
+                <img alt="" src='/shopping/public/static/admin_login/img/user_icon_copy.png'>
             </div>
             <input name="login" placeholder='用户名' maxlength="16" class="username" type='text' autocomplete="off" value=""/>
             <div class='validation'>
-                <img alt="" src='__STATIC__/admin_login/img/tick.png'>
+                <img alt="" src='/shopping/public/static/admin_login/img/tick.png'>
             </div>
         </div>
         <div class='login_fields__password'>
             <div class='icon'>
-                <img alt="" src='__STATIC__/admin_login/img/lock_icon_copy.png'>
+                <img alt="" src='/shopping/public/static/admin_login/img/lock_icon_copy.png'>
             </div>
             <input name="pwd" class="passwordNumder" placeholder='密码' maxlength="16" type='text' autocomplete="off">
             <div class='validation'>
-                <img alt="" src='__STATIC__/admin_login/img/tick.png'>
+                <img alt="" src='/shopping/public/static/admin_login/img/tick.png'>
             </div>
         </div>
         <div class='login_fields__password'>
             <div class='icon'>
-                <img alt="" src='__STATIC__/admin_login/img/key.png'>
+                <img alt="" src='/shopping/public/static/admin_login/img/key.png'>
             </div>
             <input name="code" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
             <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
@@ -77,14 +78,14 @@
     <p>认证中...</p>
 </div>
 <div class="OverWindows"></div>
-<link href="__STATIC__/admin_login/layui/css/layui.css" rel="stylesheet" type="text/css" />
+<link href="/shopping/public/static/admin_login/layui/css/layui.css" rel="stylesheet" type="text/css" />
 <!--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
-<script type="text/javascript" src="__STATIC__/admin_login/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src='__STATIC__/admin_login/js/stopExecutionOnTimeout.js?t=1'></script>
-<script src="__STATIC__/admin_login/layui/layui.js" type="text/javascript"></script>
-<script src="__STATIC__/admin_login/js/Particleground.js" type="text/javascript"></script>
-<script src="__STATIC__/admin_login/js/Treatment.js" type="text/javascript"></script>
-<script src="__STATIC__/admin_login/js/jquery.mockjax.js" type="text/javascript"></script>
+<script type="text/javascript" src="/shopping/public/static/admin_login/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src='/shopping/public/static/admin_login/js/stopExecutionOnTimeout.js?t=1'></script>
+<script src="/shopping/public/static/admin_login/layui/layui.js" type="text/javascript"></script>
+<script src="/shopping/public/static/admin_login/js/Particleground.js" type="text/javascript"></script>
+<script src="/shopping/public/static/admin_login/js/Treatment.js" type="text/javascript"></script>
+<script src="/shopping/public/static/admin_login/js/jquery.mockjax.js" type="text/javascript"></script>
 
 <!--登录特效-->
 <script>
@@ -213,7 +214,7 @@
                                         color: '#777'
                                     });
                                     setTimeout(function(){
-                                        location.href = "{:url('index/index')}";
+                                        location.href = "<?php echo url('index/index'); ?>";
                                     },1200);
                                 },1500);
                             } else {
@@ -221,7 +222,7 @@
                                 setTimeout(function(){
                                     ErroAlert(result.message)
                                     setTimeout(function(){
-                                        location.href = "{:url('login/index')}";
+                                        location.href = "<?php echo url('login/index'); ?>";
                                     },2000);
                                 },1500);
                             }

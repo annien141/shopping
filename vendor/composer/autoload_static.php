@@ -11,6 +11,10 @@ class ComposerStaticInitcd3150f22cba679edbb01f728266c4db
         array (
             'think\\composer\\' => 15,
         ),
+        'g' => 
+        array (
+            'gmars\\rbac\\' => 11,
+        ),
         'a' => 
         array (
             'app\\' => 4,
@@ -21,6 +25,10 @@ class ComposerStaticInitcd3150f22cba679edbb01f728266c4db
         'think\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
+        ),
+        'gmars\\rbac\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gmars/tp5-rbac/src',
         ),
         'app\\' => 
         array (

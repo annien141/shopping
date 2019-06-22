@@ -101,7 +101,7 @@ return [
     // 合并路由规则
     'route_rule_merge'       => false,
     // 路由是否完全匹配
-    'route_complete_match'   => false,
+    'route_complete_match'   => true,
     // 使用注解路由
     'route_annotation'       => false,
     // 域名根，如thinkphp.cn
@@ -142,5 +142,11 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
+    'rbac' => [
+        'type' => 'jwt',    //验证方式 jwt(token方式)形式或者service(基于cookie)方式
+        'db' => '',        //rbac要使用的数据库配置为空则为默认库(生成表的前缀依赖此配置)
+        'salt_token' => 'asdfasfdafasf',    //token加密密钥
+        'token_key' => 'Authorization'      //header中用于验证token的名称
+    ]
 
 ];

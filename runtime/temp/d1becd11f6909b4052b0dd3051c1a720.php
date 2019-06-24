@@ -1,4 +1,4 @@
-<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\index\view\login\login.html";i:1561175569;}*/ ?>
+<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\index\view\login\login.html";i:1561185872;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -463,7 +463,7 @@
                     <section class="content">
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="text" id="register-username"
-                                       autocomplete="off" placeholder="请输入用户名" maxlength="15"/>
+                                       autocomplete="off" placeholder="用户名,15位以下字母或数字" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="register-username">
 									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>

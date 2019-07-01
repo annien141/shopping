@@ -1,0 +1,302 @@
+{include file="header"}
+<section class="Hui-article-box">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 品牌管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+    <div class="Hui-article">
+        <article class="cl pd-20">
+            <div class="text-c">
+
+                    <input type="text" placeholder="名称" value="" class="input-text" style="width:180px" id="brand_name">
+                    <span class="btn-upload form-group">
+
+					<input type="text" placeholder="描述" value="" class="input-text" style="width:300px" id="brand_commit">
+					</span><button type="button" class="btn btn-success" id="add" name="" ><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+
+                <!--<a href="{:url('brand/add')}">添加</a>-->
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="pidelete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+            <div class="mt-10">
+                <table class="table table-border table-bordered table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="50"><input type="checkbox" name="" value=""></th>
+                        <th width="100">ID</th>
+                        <th width="150">品牌名称</th>
+                        <th width="300">具体描述</th>
+                        <th width="130">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr class="text-c">-->
+                        <!--<td><input name="" type="checkbox" value=""></td>-->
+                        <!--<td>1</td>-->
+                        <!--<td><input type="text" class="input-text text-c" value="1"></td>-->
+                        <!--<td><img src="temp/brand/dongpeng.jpeg"></td>-->
+                        <!--<td class="text-l"><img title="国内品牌" src="static/h-ui/images/gq/cn.gif"> 东鹏</td>-->
+                        <!--<td class="text-l">东鹏陶瓷被评为“中国名牌”、“国家免检产品”、“中国驰名商标”、http://www.dongpeng.net/</td>-->
+                        <!--<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('品牌编辑','codeing.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+
+    <div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <input type="text" placeholder="id" value="" class="input-text" style="width:120px" id="p_id" hidden="">
+                </div>
+
+                <div class="modal-header">
+                    <input type="text" placeholder="名称" value="" class="input-text" style="width:120px" id="p_name" >
+                </div>
+                <div class="modal-header">
+                    <input type="text" placeholder="描述" value="" class="input-text" style="width:120px" id="p_description">
+                </div>
+                <div class="modal-header">
+                    <span id="s_span"></span>
+                </div>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="pu_update()">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin_index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#add").click(function() {
+            var brand_name=$("#brand_name").val()
+            var brand_commit=$("#brand_commit").val()
+            $.ajax({
+                url: "{:url('brand/add')}",
+                data: {
+                    brand_name: brand_name,
+                    brand_commit:brand_commit
+                },
+                type: "post",
+                dataType: "json",
+                success: function (res) {
+                    console.log(res)
+                    if(res.status=="ok"){
+                        SuccessAlert(res.data)
+                        show()
+                    } else{
+                        ErroAlert(res.data)
+                    }
+                }
+            })
+        })
+    })
+    function show() {
+        $.ajax({
+            url: "{:url('brand/show')}",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                var tr=''
+                for (var i=0;i<res.length;i++){
+                    tr=tr+'<tr class="text-c"><td><input name="" type="checkbox" class="mycheck" value='+res[i].id+'></td> <td> '+res[i].id+'</td> <td tid='+res[i].id+' tname='+res[i].name+'><span class="upname" style="cursor: pointer">'+res[i].name+' </span></td> <td tid='+res[i].id+' tname1='+res[i].description+'><span class="updescript" style="cursor: pointer">'+res[i].description+'</span></td> <td class="f-14 product-brand-manage"><a style="text-decoration:none" class="up" href="javascript:;" title="编辑" onClick="modaldemo('+res[i].id+')"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" id="del" title="删除" onclick="del1('+res[i].id+')"><i class="Hui-iconfont">&#xe6e2;</i></a></td> </tr>'
+                }
+                $(".table tbody").html(tr)
+            }
+        })
+    }
+    show()
+    function del1(id) {
+        $.ajax({
+            url: "{:url('brand/delete')}",
+            data: {
+                id: id,
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                console.log(res)
+                SuccessAlert(res.data)
+                show()
+            }
+        })
+    }
+
+    function pidelete(){
+        var box=$(".mycheck:checked")
+        console.log(box)
+        if (box.length==0){
+            ErroAlert("至少选择一项")
+        }else{
+            var id=''
+            for (var i=0;i<box.length;i++){
+                id=id+','+box[i].value
+            }
+
+            var index = layer.confirm("确认删除?", { icon: 7,  offset: 't', closeBtn: 2, title: '警告', btn: ["确认","关闭"], anim: 2, shade: 0 },function(){
+                $.ajax({
+                    url: "{:url('brand/deleteMore')}",
+                    data: {
+                        id: id,
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (res) {
+                        if(res.status=="ok"){
+                            layer.msg(res.data, {icon: 1,time:2000});
+                            show()
+                        }
+                    }
+                })
+            });
+            layer.style(index, {
+                color: '#777'
+            });
+        }
+    }
+
+    $(document).on("click",".upname",function () {
+        var name=$(this).text()
+        var input="<input class='inputname' type='text' autofocus='1' value='"+name+"' style='width: 150px;height: 25px;'>"
+        $(this).parent().html(input)
+    })
+    $(document).on("blur",".inputname",function () {
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname")
+        var descript=$(this).parent().next().html()
+        console.log(id)
+        console.log(name)
+        console.log(_this)
+        $.ajax({
+            url: "{:url('brand/updateName')}",
+            data: {
+                id: id,
+                name:name,
+                descript:descript
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='upname'>"+name+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname",name)
+                } else{
+                    ErroAlert(res.data)
+                    var span="<span class='upname'>"+oldname+"</span>"
+                    _this.parent().html(span)
+                }
+            }
+        })
+    })
+       
+    $(document).on("click",".updescript",function () {
+        var name=$(this).text()
+        var input="<input class='inputdescript' type='text' value='"+name+"' style='width: 150px;height: 25px;' autofocus='1'>"
+        $(this).parent().html(input)
+    })
+    $(document).on("blur",".inputdescript",function () {
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname1")
+        var descript=$(this).parent().next().html()
+        $.ajax({
+            url: "{:url('brand/updateDescript')}",
+            data: {
+                id: id,
+                name:name,
+                descript:descript
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='updescript'>"+name+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname1",name)
+                } else{
+                    ErroAlert(res.data)
+                    var span="<span class='updescript'>"+oldname+"</span>"
+                    _this.parent().html(span)
+                }
+            }
+        })
+    })
+
+    function modaldemo(id){
+        $("#modal-demo").modal("show")
+        $.ajax({
+            url:"{:url('brand/admin')}",
+            data:{
+                id:id,
+            },
+            type:'post',
+            dataType:'json',
+            success:function(result){
+                console.log(result)
+                var code=result.data;
+                $('#p_id').val(code[0]['id'])
+                $('#p_name').val(code[0]['name'])
+                $('#p_description').val(code[0]['description'])
+            }
+        })
+    }
+
+    function pu_update() {
+        var id=$('#p_id').val()
+        var name=$('#p_name').val()
+        var description=$('#p_description').val()
+        $.ajax({
+            url: "{:url('brand/updateName')}",
+            data: {
+                id: id,
+                name: name,
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if (res.status == "error") {
+                    ErroAlert(res.data)
+                }
+                $("#modal-demo").modal("hide")
+                show()
+            }
+        })
+
+        $.ajax({
+            url: "{:url('brand/updateDescript')}",
+            data: {
+                id: id,
+                name: description,
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if (res.status == "error") {
+                    ErroAlert(res.data)
+                    show()
+                }
+            }
+        })
+
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="footer"}

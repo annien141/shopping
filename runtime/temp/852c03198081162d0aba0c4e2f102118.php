@@ -1,4 +1,4 @@
-<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1561109223;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
+<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1561725143;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
 
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
@@ -52,11 +52,11 @@
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
                     <li>超级管理员</li>
-                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A"><?php echo htmlentities($arr['0']['aname']); ?> <i class="Hui-iconfont">&#xe6d5;</i></a>
+                    <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A"><?php echo htmlentities($name); ?> <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
                             <li><a href="#">切换账户</a></li>
-                            <li><a href="logout">退出</a></li>
+                            <li><a href="<?php echo url('login/index'); ?>">退出</a></li>
                         </ul>
                     </li>
                     <li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
@@ -101,7 +101,7 @@
             <dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="product-brand.html" title="品牌管理">品牌管理</a></li>
+                    <li><a href="<?php echo url('brand/list1'); ?>" title="品牌管理">品牌管理</a></li>
                     <li><a href="product-category.html" title="分类管理">分类管理</a></li>
                     <li><a href="product-list.html" title="产品管理">产品管理</a></li>
                 </ul>
@@ -135,8 +135,8 @@
             <dd>
                 <ul>
                     <li><a href="admin-role.html" title="角色管理">角色管理</a></li>
-                    <li><a href="admin-permission.html" title="权限管理">权限管理</a></li>
-                    <li><a href="admin-list.html" title="管理员列表">管理员列表</a></li>
+                    <li><a href="<?php echo url('brand/admin_permission'); ?>" title="权限管理">权限管理</a></li>
+                    <li><a href="<?php echo url('brand/admin_list'); ?>" title="管理员列表">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -170,6 +170,8 @@
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 <!--/_menu 作为公共模版分离出去-->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/shopping/public/static/admin_login/js/Treatment.js" type="text/javascript"></script>
 <section class="Hui-article-box">
     <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a>
         <span class="c-999 en">&gt;</span>

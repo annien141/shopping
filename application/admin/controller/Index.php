@@ -16,8 +16,7 @@ class index extends Common
     }
 
     function logout(){
-        unset($_SESSION['aname']);
-        unset($_SESSION['aid']);
+        unset($_SESSION['name']);
         $this->redirect("login/index");
     }
     public function rbac(){

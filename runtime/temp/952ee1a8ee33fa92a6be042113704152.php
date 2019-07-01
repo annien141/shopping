@@ -1,4 +1,4 @@
-<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html";i:1561103518;}*/ ?>
+<?php /*a:1:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\login\login.html";i:1561728673;}*/ ?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -52,7 +52,7 @@
             <div class='icon'>
                 <img alt="" src='/shopping/public/static/admin_login/img/key.png'>
             </div>
-            <input name="code" placeholder='验证码' maxlength="4"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
+            <input name="code" placeholder='验证码' maxlength="5"  class="ValidateNum" type='text' name="ValidateNum" autocomplete="off">
             <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
                 <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
             </div>
@@ -169,7 +169,7 @@
 
                 ErroAlert('请输入密码');
                 return false;
-            } else if (code == '' || code.length != 4) {
+            } else if (code == '' || code.length != 5) {
                 ErroAlert('验证码错误');
                 return false;
 
@@ -198,10 +198,11 @@
                     }, 500);
 
                     $.ajax({
-                        url: "login",
+                        url: "<?php echo url('login/login'); ?>",
                         data: {
                             name1: login,
-                            password1: pwd
+                            password1: pwd,
+                            code:code
                         },
                         type:"post",
                         dataType:"json",

@@ -15,4 +15,11 @@ class Common extends Controller
             $this->assign('name',$name);
         }
     }
+    public function commonToken()
+    {
+        $token = $this->request->token('__token__', 'sha1');
+        $acc=["token"=>$token];
+        echo $b=json_encode($acc);
+    }
+
 }

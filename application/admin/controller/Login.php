@@ -12,6 +12,12 @@ class Login
         return view('login');
     }
 
+    public function code(){
+        $code=input("post.code");
+        $_SESSION['code']=$code;
+        echo $_SESSION['code'];
+    }
+
     public function login()
     {
         $name=input("post.name1");
@@ -19,25 +25,8 @@ class Login
         $code=input("post.code");
         $password=md5($password);
 
-        $code2=$_COOKIE['AdminCode'];
-        $ret = '';
-        $len = strlen($code2);
-        for ($i = 0; $i < $len; $i++){
-            if ($code2[$i] == '%' && $code2[$i+1] == 'u'){
-                $val = hexdec(substr($code2, $i+2, 4));
-                if ($val < 0x7f) $ret .= chr($val);
-                else if($val < 0x800) $ret .= chr(0xc0|($val>>6)).chr(0x80|($val&0x3f));
-                else $ret .= chr(0xe0|($val>>12)).chr(0x80|(($val>>6)&0x3f)).chr(0x80|($val&0x3f));
-                $i += 5;
-            }
-            else if ($code2[$i] == '%'){
-                $ret .= urldecode(substr($code2, $i, 3));
-                $i += 2;
-            }
-            else $ret .= $code2[$i];
-        }
         $code=strtoupper($code);
-        $ret=strtoupper($ret);
+        $ret=strtoupper($_SESSION['code']);
         if($code!=$ret){
             $arr1=["code"=>"3","status"=>"error","message"=>"验证码错误!!!"];
             $type=json_encode($arr1);

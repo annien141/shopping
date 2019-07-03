@@ -1,4 +1,4 @@
-<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1561725143;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
+<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1561978254;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
 
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
@@ -134,9 +134,10 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="admin-role.html" title="角色管理">角色管理</a></li>
-                    <li><a href="<?php echo url('brand/admin_permission'); ?>" title="权限管理">权限管理</a></li>
-                    <li><a href="<?php echo url('brand/admin_list'); ?>" title="管理员列表">管理员列表</a></li>
+                    <li><a href="<?php echo url('permission/admin_role'); ?>" title="角色管理">角色管理</a></li>
+                    <li><a href="<?php echo url('permission/admin_permission'); ?>" title="权限管理">权限管理</a></li>
+                    <li><a href="<?php echo url('permission/admin_list'); ?>" title="管理员列表">管理员列表</a></li>
+                    <li><a href="<?php echo url('permission/list1'); ?>" title="品牌管理">权限分类管理</a></li>
                 </ul>
             </dd>
         </dl>

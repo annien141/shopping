@@ -8,6 +8,8 @@ use gmars\rbac\Rbac;
 if (!session_id()) session_start();
 class Control extends Common
 {
+
+
     function pcAdd(){
         return $this->fetch();
     }

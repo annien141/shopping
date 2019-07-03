@@ -1,0 +1,486 @@
+{include file="header"}
+<section class="Hui-article-box">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限分类管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+    <div class="Hui-article">
+        <article class="cl pd-20">
+            <div class="text-c">
+
+                <input type="text" placeholder="名称" value="" class="input-text" style="width:180px" id="pname">
+                <span class="btn-upload form-group">
+                    <input type="" id="__token__" name="__token__" value="{$Request.token}" />
+					<input type="text" placeholder="描述" value="" class="input-text" style="width:300px" id="pcommit">
+                    <input type="text" placeholder="路径" value="" class="input-text" style="width:300px" id="ppath">
+					</span>
+                <select id="select">
+                    <option value="">分类</option>
+                </select>
+                <button type="button" class="btn btn-success" id="add" name="" ><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+
+                <!--<a href="{:url('brand/add')}">添加</a>-->
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="pidelete()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+            <div class="mt-10">
+                <table class="table table-border table-bordered table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <th width="30"><input type="checkbox" name="" value=""></th>
+                        <th width="30">ID</th>
+                        <th width="100">权限名称</th>
+                        <th width="100">权限描述</th>
+                        <th width="100">权限路径</th>
+                        <th width="100">权限分类</th>
+                        <th width="50">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--<tr class="text-c">-->
+                    <!--<td><input name="" type="checkbox" value=""></td>-->
+                    <!--<td>1</td>-->
+                    <!--<td><input type="text" class="input-text text-c" value="1"></td>-->
+                    <!--<td><img src="temp/brand/dongpeng.jpeg"></td>-->
+                    <!--<td class="text-l"><img title="国内品牌" src="static/h-ui/images/gq/cn.gif"> 东鹏</td>-->
+                    <!--<td class="text-l">东鹏陶瓷被评为“中国名牌”、“国家免检产品”、“中国驰名商标”、http://www.dongpeng.net/</td>-->
+                    <!--<td class="f-14 product-brand-manage"><a style="text-decoration:none" onClick="product_brand_edit('品牌编辑','codeing.html','1')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="active_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+
+    <div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content radius">
+                <div class="modal-header">
+                    <input type="text" placeholder="id" value="" class="input-text" style="width:120px" id="p_id" hidden="">
+                </div>
+
+                <div class="modal-header">
+                    修改名称→
+                    <input type="text" placeholder="名称" value="" class="input-text" style="width:220px" id="p_name" >
+
+                </div>
+                <div class="modal-header">
+                    修改描述→
+                    <input type="text" placeholder="描述" value="" class="input-text" style="width:220px" id="p_description">
+
+                </div>
+                <div class="modal-header">
+                    修改路径→
+                    <input type="text" placeholder="描述" value="" class="input-text" style="width:220px" id="p_path">
+
+                </div>
+                <div class="modal-header">
+                修改权限分类→
+                <select id="select2">
+
+                </select>
+                </div>
+                <div class="modal-header">
+                    <span id="s_span"></span>
+                </div>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="pu_update()">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin_index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#add").click(function() {
+            var pname=$("#pname").val()
+            var pcommit=$("#pcommit").val()
+            var ppath=$("#ppath").val()
+            var select=$("#select").val()
+            var __token__=$("#__token__").val()
+            $.ajax({
+                url: "{:url('permissionlist/add')}",
+                data: {
+                    name: pname,
+                    commit:pcommit,
+                    path:ppath,
+                    select:select,
+                    __token__:__token__,
+                },
+                type: "post",
+                dataType: "json",
+                success: function (res) {
+                    console.log(res)
+                    if(res.status=="ok"){
+                        SuccessAlert(res.data)
+                        show()
+                    } else{
+                        ErroAlert(res.data)
+                    }
+                    token()
+                }
+            })
+        })
+    })
+
+    function getCate() {
+
+        $.ajax({
+            url: "{:url('permission/show')}",
+            dataType: 'json',
+            success: function (res) {
+                var option=''
+                for (var i = 0; i < res.length; i++) {
+                    option = option + "<option  value='" + res[i]['id'] + "'>" + res[i]['name'] + "</option>"
+                }
+                $('#select').html(option)
+            }
+        })
+    }
+    getCate()
+
+    function show() {
+        $.ajax({
+            url: "{:url('permissionlist/show')}",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                var tr=''
+                for (var i=0;i<res.length;i++){
+                    tr=tr+'<tr class="text-c"><td><input name="" type="checkbox" class="mycheck" value='+res[i].id+'></td> <td> '+res[i].id+'</td> <td tid='+res[i].id+' tname='+res[i].name+'><span class="upname" style="cursor: pointer">'+res[i].name+' </span></td> <td tid='+res[i].id+' tname1='+res[i].description+'><span class="updescript" style="cursor: pointer">'+res[i].description+'</span></td><td tid='+res[i].id+' tname2='+res[i].path+'><span class="uppath" style="cursor: pointer">'+res[i].path+'</span></td><td tid='+res[i].id+' tname3='+res[i].path+' tid1='+res[i].category_id+'><span class="upfenlei" style="cursor: pointer" id="sp1">'+res[i].p_c_name+'</span></td> <td class="f-14 product-brand-manage"><a style="text-decoration:none" class="up" href="javascript:;" title="编辑" onClick="modaldemo('+res[i].id+','+res[i].category_id+')"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" id="del" title="删除" onclick="del1('+res[i].id+')"><i class="Hui-iconfont">&#xe6e2;</i></a></td> </tr>'
+                }    
+                $(".table tbody").html(tr)
+            }
+        })
+    }
+    show()
+    function del1(id) {
+        var __token__=$("#__token__").val()
+        $.ajax({
+            url: "{:url('permissionlist/delete')}",
+            data: {
+                id: id,
+                __token__:__token__,
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                console.log(res)
+                SuccessAlert(res.data)
+                show()
+                token()
+            }
+        })
+    }
+
+    function pidelete(){
+        var box=$(".mycheck:checked")
+        var __token__=$("#__token__").val()
+        console.log(box)
+        if (box.length==0){
+            ErroAlert("至少选择一项")
+        }else{
+            var id=''
+            for (var i=0;i<box.length;i++){
+                id=id+','+box[i].value
+            }
+
+            var index = layer.confirm("确认删除?", { icon: 7,  offset: 't', closeBtn: 2, title: '警告', btn: ["确认","关闭"], anim: 2, shade: 0 },function(){
+                $.ajax({
+                    url: "{:url('permissionlist/deleteMore')}",
+                    data: {
+                        id: id,
+                        __token__:__token__
+                    },
+                    type: "post",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res)
+                        if(res.status=="ok"){
+                            layer.msg(res.data, {icon: 1,time:2000});
+                            show()
+                        }
+                        token()
+                    }
+                })
+            });
+            layer.style(index, {
+                color: '#777'
+            });
+        }
+    }
+
+    $(document).on("click",".upname",function () {
+        var name=$(this).text()
+        var input="<input class='inputname' type='text' autofocus='1' value='"+name+"' style='width: 150px;height: 25px;'>"
+        $(this).parent().html(input)
+    })
+    $(document).on("blur",".inputname",function () {
+        var __token__=$("#__token__").val()
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname")
+        var descript=$(this).parent().next().html()
+        $.ajax({
+            url: "{:url('permissionlist/updateName')}",
+            data: {
+                id: id,
+                name:name,
+                descript:descript,
+                __token__:__token__
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='upname'>"+name+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname",name)
+                } else{
+                    ErroAlert(res.data)
+                    var span="<span class='upname'>"+oldname+"</span>"
+                    _this.parent().html(span)
+                }
+                token()
+            }
+        })
+    })
+
+    $(document).on("click",".updescript",function () {
+        var name=$(this).text()
+        var input="<input class='inputdescript' type='text' value='"+name+"' style='width: 150px;height: 25px;' autofocus='1'>"
+        $(this).parent().html(input)
+    })
+    $(document).on("blur",".inputdescript",function () {
+        var __token__=$("#__token__").val()
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname1")
+        var descript=$(this).parent().next().html()
+        $.ajax({
+            url: "{:url('permissionlist/updateDescript')}",
+            data: {
+                id: id,
+                name:name,
+                descript:descript,
+                __token__:__token__
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='updescript'>"+name+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname1",name)
+                } else{
+                    ErroAlert(res.data)
+                    var span="<span class='updescript'>"+oldname+"</span>"
+                    _this.parent().html(span)
+                }
+                token()
+            }
+        })
+    })
+
+
+
+    $(document).on("click",".uppath",function () {
+        var name=$(this).text()
+        var input="<input class='inputpath' type='text' autofocus='1' value='"+name+"' style='width: 150px;height: 25px;'>"
+        $(this).parent().html(input)
+    })
+    $(document).on("blur",".inputpath",function () {
+        var __token__=$("#__token__").val()
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname2")
+        var descript=$(this).parent().next().html()
+
+        $.ajax({
+            url: "{:url('permissionlist/updatePath')}",
+            data: {
+                id: id,
+                path:name,
+                descript:descript,
+                __token__:__token__
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='uppath'>"+name+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname2",name)
+                } else{
+                    ErroAlert(res.data)
+                    var span="<span class='uppath'>"+oldname+"</span>"
+                    _this.parent().html(span)
+                }
+                token()
+            }
+        })
+    })
+
+
+    $(document).on("click",".upfenlei",function () {
+        var id=$(this).parent().attr("tid1")
+        console.log(id)
+        $.ajax({
+            url: "{:url('permission/show')}",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                var option=''
+                for (var i = 0; i < res.length; i++) {
+                    if(id==res[i]['id']) {
+                        console.log(res[i]['id'])
+                        option = option + "<option  value='" + res[i]['id'] + "' selected>" + res[i]['name'] + "</option>"
+                    }else{
+                        option = option + "<option  value='" + res[i]['id'] + "'>" + res[i]['name'] + "</option>"
+                    }
+
+                    $("#select1").html(option)
+                }
+            }
+        })
+        var name=$(this).text()
+        console.log(name)
+        var select="<select class='inputfenlei' type='text' id='select1' ></select>"
+        $(this).parent().html(select)
+    })
+    $(document).on("change","#select1",function () {
+        var __token__=$("#__token__").val()
+        var sp1=$('#sp1').html()
+        var name=$(this).val()
+        var _this=$(this)
+        var _parent=$(this).parent()
+        var id=$(this).parent().attr("tid")
+        var oldname=$(this).parent().attr("tname3")
+        // console.log(name)
+        // console.log(_this)
+        // console.log(_parent)
+        // console.log(id)
+        // console.log(oldname)
+        $.ajax({
+            url: "{:url('permissionlist/updatefenlei')}",
+            data: {
+                id: id,
+                name:name,
+                oldname:oldname,
+                __token__:__token__
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if(res.status=="ok"){
+                    var span="<span class='upfenlei'>"+sp1+"</span>"
+                    _this.parent().html(span)
+                    _parent.attr("tname3",name)
+                    show()
+                } else{
+                    ErroAlert(res.data)
+                }
+                token()
+            }
+        })
+    })
+
+
+    function modaldemo(id,id1){
+        $("#modal-demo").modal("show")
+        console.log(id)
+        $.ajax({
+            url:"{:url('permissionlist/admin')}",
+            data:{
+                id:id,
+            },
+            type:'post',
+            dataType:'json',
+            success:function(result){
+                console.log(result)
+                var code=result.data;
+                $('#p_id').val(code[0]['id'])
+                $('#p_name').val(code[0]['name'])
+                $('#p_description').val(code[0]['description'])
+                $('#p_path').val(code[0]['path'])
+            }
+        })
+        $.ajax({
+            url: "{:url('permission/show')}",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                var option=''
+                for (var i = 0; i < res.length; i++) {
+                    if(id1==res[i]['id']) {
+                        console.log(res[i]['id'])
+                        option = option + "<option  value='" + res[i]['id'] + "' selected>" + res[i]['name'] + "</option>"
+                    }else{
+                        option = option + "<option  value='" + res[i]['id'] + "'>" + res[i]['name'] + "</option>"
+                    }
+                    $("#select2").html(option)
+                }
+            }
+        })
+    }
+
+    function pu_update() {
+        var id=$('#p_id').val()
+        var name=$('#p_name').val()
+        var description=$('#p_description').val()
+        var path=$('#p_path').val()
+        var select2=$("#select2").val()
+        var __token__=$("#__token__").val()
+
+        $.ajax({
+            url: "{:url('permissionlist/pu_update')}",
+            data: {
+                id: id,
+                name: name,
+                description:description,
+                path:path,
+                select2:select2,
+                __token__:__token__,
+            },
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if (res.status == "ok") {
+                    SuccessAlert(res.data)
+                } else{
+                    ErroAlert(res.data)
+                }
+                $("#modal-demo").modal("hide")
+                show()
+                token()
+            }
+        })
+    }
+    function token() {          //写了一个专门执行token自动生成的方法
+        $.ajax({
+            url:"{:url('Common/commonToken')}",
+            dataType:"json",                        //设置接值格式为json
+            success:function (res) {
+                var __token__=$("#__token__").val(res.token);
+            }
+        })
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="footer"}

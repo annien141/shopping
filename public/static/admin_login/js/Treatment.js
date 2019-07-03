@@ -74,6 +74,19 @@ function createCode(e) {
 	}else{
 		return code;
 	}
+
+    $.ajax({
+        // url: "{:url('login/login')}",
+        url: "code",
+        data: {
+            code:code
+        },
+        type:"post",
+        // dataType:"json",
+        success: function (result) {
+            console.log(result)
+        }
+    })
 }
 
 

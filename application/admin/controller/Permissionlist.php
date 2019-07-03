@@ -73,7 +73,7 @@ class Permissionlist extends Common
         $sql="select * from permission where name='$name' or path='$path'";
         $getarr =Db::query($sql);
         if (empty($getarr)) {
-            $sql1="insert into permission(`name`,`path`,`description`,`category_id`) values ('$name','$path','$description','$select')";
+            $sql1="insert into permission(`name`,`path`,`description`,`category_id`,`status`) values ('$name','$path','$description','$select',1)";
             $arr1 =Db::query($sql1);
             $arr = ['code' => '1', 'status' => 'ok', 'data' => "添加成功"];
         } else {

@@ -1,0 +1,212 @@
+
+{include file="header"}
+
+    <title>新建网站角色 - 管理员管理 - H-ui.admin v3.0</title>
+    <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+    <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<article class="cl pd-20">
+    <div action="" method="post" class="form form-horizontal" id="form-admin-role-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="角色名称" id="name" datatype="*4-16" nullmsg="用户账户不能为空">
+                <input type="" id="__token__" name="__token__" value="{$Request.token}" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="备注" id="text" name="">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">网站角色：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <dl class="permission-list" id="permission-list">
+                    <dt>
+                        <label>
+                            <input type="checkbox" value="" name="user-Character-0" id="user-Character-0" class="check">
+                            资讯管理</label>
+                    </dt>
+                    <!--<dd>-->
+
+                        <!--<dl class="cl permission-list2">-->
+                            <!--<dt>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1" id="user-Character-0-1">-->
+                                    <!--文章管理</label>-->
+                            <!--</dt>-->
+                            <!--<dd>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-0">-->
+                                    <!--添加</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-1">-->
+                                    <!--修改</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-2">-->
+                                    <!--删除</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-3">-->
+                                    <!--查看</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-4">-->
+                                    <!--审核</label>-->
+                                <!--<label class="c-orange"><input type="checkbox" value="" name="user-Character-0-2-0" id="user-Character-0-2-5"> 只能操作自己发布的</label>-->
+                            <!--</dd>-->
+                        <!--</dl>-->
+                    <!--</dd>-->
+                </dl>
+                <!--<dl class="permission-list">-->
+                    <!--<dt>-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" value="" name="user-Character-0" id="user-Character-1">-->
+                            <!--用户中心</label>-->
+                    <!--</dt>-->
+                    <!--<dd>-->
+                        <!--<dl class="cl permission-list2">-->
+                            <!--<dt>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0" id="user-Character-1-0">-->
+                                    <!--用户管理</label>-->
+                            <!--</dt>-->
+                            <!--<dd>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-0">-->
+                                    <!--添加</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-1">-->
+                                    <!--修改</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-2">-->
+                                    <!--删除</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-3">-->
+                                    <!--查看</label>-->
+                                <!--<label class="">-->
+                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-4">-->
+                                    <!--审核</label>-->
+                            <!--</dd>-->
+                        <!--</dl>-->
+                    <!--</dd>-->
+                <!--</dl>-->
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-success radius" id="add" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+            </div>
+        </div>
+    </div>
+</article>
+
+{include file="footer"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    // $(function(){
+    //     $(".permission-list dt input:checkbox").click(function(){
+    //         $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+    //     });
+    //     $(".permission-list2 dd input:checkbox").click(function(){
+    //         var l =$(this).parent().parent().find("input:checked").length;
+    //         var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+    //         if($(this).prop("checked")){
+    //             $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+    //             $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+    //         }
+    //         else{
+    //             if(l==0){
+    //                 $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+    //             }
+    //             if(l2==0){
+    //                 $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+    //             }
+    //         }
+    //     });
+    //
+    //     $("#form-admin-role-add").validate({
+    //         rules:{
+    //             roleName:{
+    //                 required:true,
+    //             },
+    //         },
+    //         onkeyup:false,
+    //         focusCleanup:true,
+    //         success:"valid",
+    //         submitHandler:function(form){
+    //             $(form).ajaxSubmit();
+    //             var index = parent.layer.getFrameIndex(window.name);
+    //             parent.layer.close(index);
+    //         }
+    //     });
+    // });
+    function show() {
+        $.ajax({
+            url: "{:url('permissionrole/show')}",
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                var dl=''
+                $.each(res,function (key,value){
+                  dl=dl+"<dt><lable style='color: red;font-weight:bold '><input type='checkbox' >"+key+" </lable></dt><dd>"
+                    $.each(value,function (key1,value1){
+                        dl=dl+"<lable><input type='checkbox' class='check' value='"+value1['id']+"'>"+value1['name']+"&nbsp;&nbsp;&nbsp;"+" </lable>"
+                    })
+                })
+                dl=dl+'</dd>'
+                $('#permission-list').html(dl)
+            }
+        })
+    }
+    show()
+
+    $('#add').click(function(){
+        var __token__=$("#__token__").val()
+        var name=$('#name').val()
+        var description=$('#text').val()
+        var check=$('.check:checked')
+        console.log(check)
+        var permission_id=''
+        for (var i=0;i<check.length;i++){
+            permission_id=permission_id+','+ check[i].value
+            console.log(check[i])
+        }
+        console.log(permission_id)
+        $.ajax({
+            url: "{:url('permissionrole/add')}",
+            dataType: 'json',
+            data: {
+                name: name,
+                description:description,
+                permission_id:permission_id,
+                __token__:__token__,
+            },
+            success: function (res) {
+                if(res.status=="ok"){
+                    SuccessAlert(res.data)
+                    show()
+                } else{
+                    ErroAlert(res.data)
+                }
+                token()
+            }
+        })
+    })
+
+    function token() {          //写了一个专门执行token自动生成的方法
+        $.ajax({
+            url:"{:url('Common/commonToken')}",
+            dataType:"json",                        //设置接值格式为json
+            success:function (res) {
+                var __token__=$("#__token__").val(res.token);
+            }
+        })
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

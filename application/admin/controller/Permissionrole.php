@@ -24,13 +24,26 @@ class Permissionrole extends Common
     {
         $sql="select p.id,p.name,p.description,p.path,p.category_id,p_c.name as p_c_name from permission as p join permission_category as p_c on p.category_id=p_c.id order by id ";
         $arr=Db::query($sql);
-
         $newarr=[];
         foreach ($arr as $key=>$value){
             $newarr[$value['p_c_name']][]=$value;
         }
-//        var_dump($newarr);die;
         echo json_encode($newarr);
+    }
+    
+    public function showrole()
+    {
+        $sql="select * from role";
+        $arr=Db::query($sql);
+        echo json_encode($arr);
+    }
+    public function showupdate()
+    {
+        $id=input("post.id");
+        $sql="select role_permission.permission_id from role_permission join role on role.id=role_permission.role_id where role.id=$id";
+        $arr=Db::query($sql);
+
+        echo json_encode($arr);
     }
 
     public function add()
@@ -51,12 +64,24 @@ class Permissionrole extends Common
             echo json_encode($arr);
             die;
         }
-        
-        $sql="select * from permission where name='$name'";
+        if (empty($permission_id)) {
+            $arr = ['code' => '3', 'status' => 'error', 'data' => "权限不能为空"];
+            echo json_encode($arr);
+            die;
+        }
+        $rabc=new Rbac();
+        $sql="select * from role where name='$name'";
         $getarr =Db::query($sql);
+
+        $arr=explode(",",$permission_id);
+        array_shift($arr);
+        $permission_id=implode(",",$arr);
         if (empty($getarr)) {
-//            $sql1="insert into permission(`name`,`path`,`description`,`category_id`,`status`) values ('$name','$path','$description','$select',1)";
-//            $arr1 =Db::query($sql1);
+            $rabc->createRole([
+                'name'=>$name,
+                'description'=>$description,
+                'status'=>1
+            ],$permission_id);
             $arr = ['code' => '1', 'status' => 'ok', 'data' => "添加成功"];
         } else {
             $arr = ['code' => '0', 'status' => 'error', 'data' => "角色已存在"];
@@ -64,39 +89,42 @@ class Permissionrole extends Common
         echo json_encode($arr);
     }
 //
-//    function delete(){
-//        $id = input("post.id");
-//        $data = input();
-//        $validate = new \app\admin\validate\Delete();
-//        if (!$validate->check($data)) {
-//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        $sql1="delete from  permission where id=$id";
-//        $arr1 =Db::query($sql1);
+    function delete(){
+        $id = input("post.id");
+        $data = input();
+        $validate = new \app\admin\validate\Delete();
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+            echo json_encode($arr);
+            die;
+        }
+        
+        $arr1 =Db::query("delete from role where id=$id");
+        $arr2 =Db::query("delete from role_permission where role_id=$id");
+
+        $arr = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
+        echo json_encode($arr);
+    }
 //
-//        $arr = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
-//        echo json_encode($arr);
-//    }
-//
-//    function deleteMore(){
-//        $id = input("post.id");
-//        $data= input();
-//        $validate = new \app\admin\validate\Delete;
-//        if (!$validate->check($data)) {
-//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        $arr=explode(",",$id);
-//        array_shift($arr);
-//        $arr2=implode($arr," or id=");
-//        $sql1="delete from permission where id=$arr2";
-//        $arr3 =Db::query($sql1);
-//        $arr1 = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
-//        echo json_encode($arr1);
-//    }
+    function deleteMore(){
+        $id = input("post.id");
+        $data= input();
+        $validate = new \app\admin\validate\Delete;
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+            echo json_encode($arr);
+            die;
+        }
+        $arr=explode(",",$id);
+        array_shift($arr);
+        $id1=implode($arr," or id=");
+        $id2=implode($arr," or role_id=");
+        $arr3 =Db::query("delete from role where id=$id1");
+
+        $arr4 =Db::query("delete from role_permission where role_id=$id2");
+        $arr1 = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
+        echo json_encode($arr1);
+    }
 //
 //    function updateName(){
 //        $id = input("post.id");
@@ -173,11 +201,7 @@ class Permissionrole extends Common
 //            die;
 //        }
 //
-//        if (empty($path)) {
-//            $arr = ['code' => '3', 'status' => 'error', 'data' => "路径不能为空"];
-//            echo json_encode($arr);
-//            die;
-//        }
+//        
 //        $sql="select * from permission where path='$path'";
 //        $getarr =Db::query($sql);
 //        if (empty($getarr)) {
@@ -199,55 +223,44 @@ class Permissionrole extends Common
 //        }
 //    }
 //
-//    function pu_update(){
-//        $data= input();
-//        $id = input("post.id");
-//        $name = input("post.name");
-//        $path = input("post.path");
-//        $select = input("post.select2");
-//        $description = input("post.description");
-//        $validate = new \app\admin\validate\Permission;
-//        if (!$validate->check($data)) {
-//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        if (empty($name)) {
-//            $arr = ['code' => '3', 'status' => 'error', 'data' => "分类名不能为空"];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        if (empty($description)) {
-//            $arr = ['code' => '3', 'status' => 'error', 'data' => "评论不能为空"];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        if (empty($path)) {
-//            $arr = ['code' => '3', 'status' => 'error', 'data' => "路径不能为空"];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        $sql="select * from permission where name='$name' or path='$path'";
-//        $arr2=Db::query($sql);
-//        if (empty($arr2)) {
-//            $sql1="update permission set name='$name',description='$description',path='$path',category_id='$select' where id=$id";
-//            $arr1=Db::query($sql1);
-//            $arr = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
-//            echo json_encode($arr);
-//        }else{
-//            foreach ($arr2 as $key =>$value){
-//                if($value['id']!=$id) {
-//                    $arr3 = ['code' => '0', 'status' => 'error', 'data' => "权限名或路径已存在"];
-//                    echo json_encode($arr3);
-//                    die;
-//                }
-//            }
-//            $sql2="update permission set name='$name',description='$description',path='$path',category_id='$select' where id=$id";
-//            $arr4=Db::query($sql2);
-//            $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
-//            echo json_encode($arr5);
-//        }
-//    }
+    function pu_update(){
+        $data= input();
+        $id = $data['id'];
+        $name = $data['name'];
+        $description = $data['description'];
+        $permission_id = $data['permission_id'];
+        $validate = new \app\admin\validate\Permission;
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+            echo json_encode($arr);
+            die;
+        }
+        if (empty($name)) {
+            $arr = ['code' => '3', 'status' => 'error', 'data' => "角色不能为空"];
+            echo json_encode($arr);
+            die;
+        }
+        
+        $sql="select * from role where name='$name'";
+        $arr2=Db::query($sql);
+        if (empty($arr2) || !empty($arr2)&&$arr2[0]['id']==$id) {
+            $arr=Db::query("update role set name='$name',description='$description' where id=$id");
+
+            $arr3=Db::query("delete from role_permission where role_id=$id");
+
+            $arr6=explode(",",$permission_id);
+            array_shift($arr6);
+            foreach ($arr6 as $key=>$value) {
+                $arr=Db::query("insert into role_permission(`role_id`,`permission_id`) values($id,'$value')");
+            }
+            $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
+            echo json_encode($arr5);
+        }else{
+            $arr3 = ['code' => '0', 'status' => 'error', 'data' => "角色名已存在"];
+            echo json_encode($arr3);
+
+        }
+    }
 //
 //    public function updatefenlei(){
 //        $id = input("post.id");
@@ -270,7 +283,7 @@ class Permissionrole extends Common
 
     public function admin(){
         $id=input('post.id');
-        $arr=Db::table('permission')->where('id',$id)->select();
+        $arr=Db::table('role')->where('id',$id)->select();
         $res=['code'=>'0','status'=>'ok','data'=>$arr];
         echo json_encode($res);
     }

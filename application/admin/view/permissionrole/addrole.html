@@ -30,68 +30,7 @@
                             <input type="checkbox" value="" name="user-Character-0" id="user-Character-0" class="check">
                             资讯管理</label>
                     </dt>
-                    <!--<dd>-->
-
-                        <!--<dl class="cl permission-list2">-->
-                            <!--<dt>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1" id="user-Character-0-1">-->
-                                    <!--文章管理</label>-->
-                            <!--</dt>-->
-                            <!--<dd>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-0">-->
-                                    <!--添加</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-1">-->
-                                    <!--修改</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-2">-->
-                                    <!--删除</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-3">-->
-                                    <!--查看</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-4">-->
-                                    <!--审核</label>-->
-                                <!--<label class="c-orange"><input type="checkbox" value="" name="user-Character-0-2-0" id="user-Character-0-2-5"> 只能操作自己发布的</label>-->
-                            <!--</dd>-->
-                        <!--</dl>-->
-                    <!--</dd>-->
                 </dl>
-                <!--<dl class="permission-list">-->
-                    <!--<dt>-->
-                        <!--<label>-->
-                            <!--<input type="checkbox" value="" name="user-Character-0" id="user-Character-1">-->
-                            <!--用户中心</label>-->
-                    <!--</dt>-->
-                    <!--<dd>-->
-                        <!--<dl class="cl permission-list2">-->
-                            <!--<dt>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0" id="user-Character-1-0">-->
-                                    <!--用户管理</label>-->
-                            <!--</dt>-->
-                            <!--<dd>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-0">-->
-                                    <!--添加</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-1">-->
-                                    <!--修改</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-2">-->
-                                    <!--删除</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-3">-->
-                                    <!--查看</label>-->
-                                <!--<label class="">-->
-                                    <!--<input type="checkbox" value="" name="user-Character-1-0-0" id="user-Character-1-0-4">-->
-                                    <!--审核</label>-->
-                            <!--</dd>-->
-                        <!--</dl>-->
-                    <!--</dd>-->
-                <!--</dl>-->
             </div>
         </div>
         <div class="row cl">
@@ -154,9 +93,9 @@
                 console.log(res)
                 var dl=''
                 $.each(res,function (key,value){
-                  dl=dl+"<dt><lable style='color: red;font-weight:bold '><input type='checkbox' >"+key+" </lable></dt><dd>"
+                  dl=dl+"<dt><lable style='color: red;font-weight:bold '><input type='checkbox' onclick='a1()' id='a1'>"+key+" </lable></dt><dd>"
                     $.each(value,function (key1,value1){
-                        dl=dl+"<lable><input type='checkbox' class='check' value='"+value1['id']+"'>"+value1['name']+"&nbsp;&nbsp;&nbsp;"+" </lable>"
+                        dl=dl+"<lable><input type='checkbox' name='a1'  class='check' value='"+value1['id']+"'>"+value1['name']+"&nbsp;&nbsp;&nbsp;"+" </lable>"
                     })
                 })
                 dl=dl+'</dd>'
@@ -165,17 +104,14 @@
         })
     }
     show()
-
     $('#add').click(function(){
         var __token__=$("#__token__").val()
         var name=$('#name').val()
         var description=$('#text').val()
         var check=$('.check:checked')
-        console.log(check)
         var permission_id=''
         for (var i=0;i<check.length;i++){
             permission_id=permission_id+','+ check[i].value
-            console.log(check[i])
         }
         console.log(permission_id)
         $.ajax({
@@ -190,6 +126,7 @@
             success: function (res) {
                 if(res.status=="ok"){
                     SuccessAlert(res.data)
+                    window.location.href ="{:url('permission/admin_role')}"
                     show()
                 } else{
                     ErroAlert(res.data)
@@ -198,6 +135,20 @@
             }
         })
     })
+     function a1() {
+         var a1= document.getElementsByName("a1");
+         var a2= document.getElementById("a1").checked;
+         if(a2){
+             for (var i = 0; i < a1.length; i++) {
+                 a1[i].checked = true;
+             }
+         }else{
+             for (var i = 0; i < a1.length; i++) {
+                 a1[i].checked = false;
+             }
+         }
+
+     }
 
     function token() {          //写了一个专门执行token自动生成的方法
         $.ajax({

@@ -1,0 +1,146 @@
+{include file="header"}
+
+<article class="cl pd-20">
+    <div action="" method="post" class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="用户名" id="name" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登录时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="datetime-local" class="input-text" autocomplete="off" value="" placeholder="登录时间" id="time" name="time">
+            </div>
+        </div>
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9 skin-minimal">-->
+                <!--<div class="radio-box">-->
+                    <!--<input name="sex" type="radio" id="sex-1" checked>-->
+                    <!--<label for="sex-1">男</label>-->
+                <!--</div>-->
+                <!--<div class="radio-box">-->
+                    <!--<input type="radio" id="sex-2" name="sex">-->
+                    <!--<label for="sex-2">女</label>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+            </div>
+            
+        </div>
+
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<input type="text" class="input-text" placeholder="@" name="email" id="email">-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">角色：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+				<select class="select" name="select" id="select" size="1">
+
+				</select>
+				</span> </div>
+        </div>
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-3">备注：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>-->
+                <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" onclick="add()">
+            </div>
+        </div>
+    </div>
+</article>
+<input type="" id="__token__" name="__token__" value="{$Request.token}" />
+{include file="footer"}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    function show() {
+        $.ajax({
+            url: "{:url('admin/show1')}",
+            dataType: 'json',
+            success: function (res) {
+                var option=''
+                for (var i = 0; i < res.length; i++) {
+                    option = option + "<option  value='" + res[i]['id'] + "'>" + res[i]['name'] + "</option>"
+                }
+                $('#select').html(option)
+            }
+        })
+    }
+    show()
+
+    function add() {
+        var name=$("#name").val()
+        var time=$("#time").val()
+        var phone=$("#phone").val()
+        var select=$("#select").val()
+        var password=$("#password").val()
+        var __token__=$("#__token__").val()
+        console.log(time)
+        $.ajax({
+            url: "{:url('admin/addAction')}",
+            dataType: 'json',
+            type:"post",
+            data:{
+                name1:name,
+                phone:phone,
+                time:time,
+                select:select,
+                password:password,
+                __token__:__token__,
+            },
+            success: function (res) {
+                console.log(res)
+                if(res.status=='ok'){
+                    SuccessAlert(res.data)
+                    window.location.href ="{:url('admin/admin_list')}"
+                    show()
+                }else{
+                    ErroAlert(res.data)
+                }
+                token()
+            }
+        })
+    }
+
+
+    function token() {          //写了一个专门执行token自动生成的方法
+        $.ajax({
+            url:"{:url('Common/commonToken')}",
+            dataType:"json",                        //设置接值格式为json
+            success:function (res) {
+                var __token__=$("#__token__").val(res.token);
+            }
+        })
+    }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

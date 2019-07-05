@@ -56,6 +56,11 @@
 
                 </div>
                 <div class="modal-header">
+                    修改密码→
+                    <input type="text" placeholder="密码" value="" class="input-text" style="width:220px" id="p_password" >
+
+                </div>
+                <div class="modal-header">
                     修改手机→
                     <input type="text" placeholder="描述" value="" class="input-text" style="width:220px" id="p_phone">
 
@@ -196,6 +201,7 @@
         var name=$('#p_name').val()
         var phone=$('#p_phone').val()
         var time=$('#p_time').val()
+        var password=$('#p_password').val()
         var select2=$("#select2").val()
         var __token__=$("#__token__").val()
         console.log(time)
@@ -206,6 +212,7 @@
                 name: name,
                 phone:phone,
                 time:time,
+                password:password,
                 select2:select2,
                 __token__:__token__,
             },
@@ -215,6 +222,7 @@
                 if (res.status == "ok") {
                     SuccessAlert(res.data)
                     $("#modal-demo").modal("hide")
+                    $('#p_password').val("")
                 } else{
                     ErroAlert(res.data)
                 }

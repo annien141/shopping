@@ -17,13 +17,6 @@ class Admin extends Common
         return $this->fetch("admin_list");
     }
 
-//    public function admin()
-//    {
-//        $id=input('post.id');
-//        $arr=Db::table('role')->where('id',$id)->select();
-//        $res=['code'=>'0','status'=>'ok','data'=>$arr];
-//        echo json_encode($res);
-//    }
     public function show()
     {
         $sql = "select u.id ,u.user_name,u.mobile,u.last_login_time,ur.user_id ,ur.role_id ,r.id as rid,r.name as rname,r.description from user as u join user_role as ur on ur.user_id=u.id join role as r on r.id=ur.role_id order by u.id";
@@ -149,6 +142,7 @@ class Admin extends Common
         $id = $data['id'];
         $name = $data['name'];
         $phone = $data['phone'];
+        $password= md5($data['password']);
         $time= $data['time'];
         $time=str_replace('T',' ',$time);
         $select2= $data['select2'];
@@ -160,6 +154,11 @@ class Admin extends Common
         }
         if (empty($name)) {
             $arr = ['code' => '4', 'status' => 'error', 'data' => "用户名不能为空"];
+            echo json_encode($arr);
+            die;
+        }
+        if (empty($password)) {
+            $arr = ['code' => '3', 'status' => 'error', 'data' => "密码不能为空"];
             echo json_encode($arr);
             die;
         }
@@ -184,7 +183,7 @@ class Admin extends Common
         $sql="select * from user where user_name='$name' or mobile='$phone'";
         $arr2=Db::query($sql);
         if (empty($arr2)) {
-            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time' where id=$id");
+            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
 
             $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
             
@@ -198,7 +197,7 @@ class Admin extends Common
                     die;
                 }
             }
-            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time' where id=$id");
+            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
 
             $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
 

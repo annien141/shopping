@@ -10,8 +10,6 @@ use app\admin\model\Brand as BrandModel;
 if (!session_id()) session_start();
 class Admin extends Common
 {
-
-
     public function admin_list()
     {
         return $this->fetch("admin_list");
@@ -51,13 +49,6 @@ class Admin extends Common
             die;
         }
 
-        $str = $phone;
-        $isMatched = preg_match('/^1[3-8]{1}[0-9]{9}$/', $str, $matches);
-        if($isMatched==0){
-            $arr = ['code' => '5', 'status' => 'error', 'data' => "手机号格式错误"];
-            echo json_encode($arr);
-            die;
-        }
 
         if (empty($name)) {
             $arr = ['code' => '4', 'status' => 'error', 'data' => "用户名不能为空"];
@@ -70,14 +61,25 @@ class Admin extends Common
             die;
         }
         if (empty($phone)) {
-            $arr = ['code' => '1', 'status' => 'error', 'data' => "手机号不能为空"];
-            echo json_encode($arr);
-            die;
+//            $arr = ['code' => '1', 'status' => 'error', 'data' => "手机号不能为空"];
+//            echo json_encode($arr);
+//            die;
+            $phone="暂未添加";
+        } else{
+            $str = $phone;
+            $isMatched = preg_match('/^1[3-8]{1}[0-9]{9}$/', $str, $matches);
+            if($isMatched==0){
+                $arr = ['code' => '5', 'status' => 'error', 'data' => "手机号格式错误"];
+                echo json_encode($arr);
+                die;
+            }
         }
         if (empty($time)) {
             $arr = ['code' => '2', 'status' => 'error', 'data' => "登录时间不能为空"];
             echo json_encode($arr);
             die;
+        } else{
+
         }
 
         $sql="select * from user where user_name='$name' or mobile='$phone'";
@@ -168,27 +170,41 @@ class Admin extends Common
             die;
         }
         if (empty($phone)) {
-            $arr = ['code' => '1', 'status' => 'error', 'data' => "手机号不能为空"];
-            echo json_encode($arr);
-            die;
+//            $arr = ['code' => '1', 'status' => 'error', 'data' => "手机号不能为空"];
+//            echo json_encode($arr);
+//            die;
+            $phone="暂未添加";
+        } else{
+            $str = $phone;
+            $isMatched = preg_match('/^1[3-8]{1}[0-9]{9}$/', $str, $matches);
+            if($isMatched==0){
+                $arr = ['code' => '5', 'status' => 'error', 'data' => "手机号格式错误"];
+                echo json_encode($arr);
+                die;
+            }
         }
-        $str = $phone;
-        $isMatched = preg_match('/^1[3-8]{1}[0-9]{9}$/', $str, $matches);
-        if($isMatched==0){
-            $arr = ['code' => '5', 'status' => 'error', 'data' => "手机号格式错误"];
-            echo json_encode($arr);
-            die;
-        }
+
 
         $sql="select * from user where user_name='$name' or mobile='$phone'";
         $arr2=Db::query($sql);
         if (empty($arr2)) {
-            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
+            // 启动事务
+            Db::startTrans();
+            try {
+                $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
 
-            $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
-            
-            $arr5 = ['code' => '0', 'status' => 'ok', 'data' => "修改成功"];
-            echo json_encode($arr5);
+                $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
+
+                $arr5 = ['code' => '0', 'status' => 'ok', 'data' => "修改成功"];
+                echo json_encode($arr5);
+                // 提交事务
+                Db::commit();
+            } catch (\Exception $e) {
+                // 回滚事务
+                Db::rollback();
+            }
+
+
         }else{
             foreach ($arr2 as $key =>$value){
                 if($value['id']!=$id) {
@@ -197,13 +213,22 @@ class Admin extends Common
                     die;
                 }
             }
-            $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
 
-            $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
+            // 启动事务
+            Db::startTrans();
+            try {
+                $arr=Db::query("update user set user_name='$name',mobile='$phone',last_login_time='$time',password='$password' where id=$id");
 
-            $arr3 = ['code' => '0', 'status' => 'ok', 'data' => "修改成功"];
-            echo json_encode($arr3);
+                $arr=Db::query("update user_role set role_id='$select2' where user_id=$id");
 
+                $arr3 = ['code' => '0', 'status' => 'ok', 'data' => "修改成功"];
+                echo json_encode($arr3);
+                // 提交事务
+                Db::commit();
+            } catch (\Exception $e) {
+                // 回滚事务
+                Db::rollback();
+            }
         }
     }
 }

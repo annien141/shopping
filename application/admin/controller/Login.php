@@ -27,7 +27,7 @@ class Login
 
         $code=strtoupper($code);
         $ret=strtoupper($_SESSION['code']);
-        if($code!=$ret){
+        if($code!=$ret ){
             $arr1=["code"=>"3","status"=>"error","message"=>"验证码错误!!!"];
             $type=json_encode($arr1);
             echo $type;

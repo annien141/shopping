@@ -222,7 +222,7 @@
                 if (res.status == "ok") {
                     SuccessAlert(res.data)
                     $("#modal-demo").modal("hide")
-                    $('#p_password').val("")
+                    $('#p_password').val(" ")
                 } else{
                     ErroAlert(res.data)
                 }

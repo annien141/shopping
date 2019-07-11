@@ -10,7 +10,10 @@ use app\admin\model\Brand as BrandModel;
 if (!session_id()) session_start();
 class Permission extends Common
 {
-
+    public function initialize(){
+        parent::initialize();
+    }
+    
     public function list1()
     {
         return $this->fetch();

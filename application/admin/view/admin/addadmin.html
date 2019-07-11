@@ -107,7 +107,7 @@
         var __token__=$("#__token__").val()
         console.log(time)
         $.ajax({
-            url: "{:url('admin/addAction')}",
+            url: "{:url('admin/add')}",
             dataType: 'json',
             type:"post",
             data:{
@@ -125,7 +125,7 @@
                     window.location.href ="{:url('admin/admin_list')}"
                     show()
                 }else{
-                    ErroAlert(res.data)
+                    ErroAlert("没有权限")
                 }
                 token()
             }

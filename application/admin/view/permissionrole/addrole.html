@@ -126,7 +126,7 @@
             success: function (res) {
                 if(res.status=="ok"){
                     SuccessAlert(res.data)
-                    window.location.href ="{:url('permission/admin_role')}"
+                    window.location.href ="{:url('permissionrole/admin_role')}"
                     show()
                 } else{
                     ErroAlert(res.data)

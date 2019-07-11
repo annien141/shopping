@@ -28,12 +28,12 @@ class Admin extends Common
         echo json_encode($arr);
     }
 
-    public function add()
+    public function addaction()
     {
         return $this->fetch("addadmin");
     }
 
-    public function addAction()
+    public function add()
     {
         $data = input();
         $name = $data['name1'];
@@ -61,9 +61,6 @@ class Admin extends Common
             die;
         }
         if (empty($phone)) {
-//            $arr = ['code' => '1', 'status' => 'error', 'data' => "手机号不能为空"];
-//            echo json_encode($arr);
-//            die;
             $phone="暂未添加";
         } else{
             $str = $phone;
@@ -85,7 +82,7 @@ class Admin extends Common
         $sql="select * from user where user_name='$name' or mobile='$phone'";
         $getarr =Db::query($sql);
 
-        if (empty($getarr)) {
+        if (empty($getarr) || !empty($getarr)&&$getarr[0]['mobile']=='暂未添加') {
             $sql="insert into user(`user_name`,`mobile`,`last_login_time`,`password`)values('$name','$phone','$time','$password')";
             $arr1 =Db::query($sql);
 
@@ -103,7 +100,7 @@ class Admin extends Common
         echo json_encode($arr);
     }
 
-    function deleteMore(){
+    function deletemore(){
         $id = input("post.id");
         $data= input();
         $validate = new \app\admin\validate\Delete;
@@ -187,7 +184,7 @@ class Admin extends Common
 
         $sql="select * from user where user_name='$name' or mobile='$phone'";
         $arr2=Db::query($sql);
-        if (empty($arr2)) {
+        if (empty($arr2) || !empty($arr2)&&$arr2[0]['mobile']=='暂未添加') {
             // 启动事务
             Db::startTrans();
             try {

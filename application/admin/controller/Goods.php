@@ -8,10 +8,10 @@ use gmars\rbac\Rbac;
 use Request;
 use app\admin\model\Brand as BrandModel;
 if (!session_id()) session_start();
-class Brand extends Base
+class Goods extends Base
 {
 
-    public function list1()
+    public function goods()
     {
         return $this->fetch();
     }
@@ -64,7 +64,7 @@ class Brand extends Base
 
     public function add()
     {
-        
+
         $data= input();
         $name = $data['name'];
         $description = $data['description'];
@@ -108,7 +108,7 @@ class Brand extends Base
                     $arr3 = ['code' => '0', 'status' => 'error', 'data' => "品牌名已存在"];
                     echo json_encode($arr3);
                 }
-               // echo $img_src; //返回ajax请求
+                // echo $img_src; //返回ajax请求
             }else{
                 // 上传失败获取错误信息
                 $this->error($logo->getError());
@@ -148,8 +148,8 @@ class Brand extends Base
                 $path = $info->getSaveName();
                 $path =substr_replace($path,"/",8,0);
                 $arr=$db->query("update brand set brand_logo='$path' where brand_id=$id");
-                    $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
-                    echo json_encode($arr5);
+                $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
+                echo json_encode($arr5);
                 // echo $img_src; //返回ajax请求
             }else{
                 // 上传失败获取错误信息
@@ -204,7 +204,7 @@ class Brand extends Base
         //$id2=implode($arr," or role_id=");
         $db=Base::connect();
         $arr3 =$db->query("select * from brand where brand_id=$id1");
-     //   echo json_encode($arr3);die;
+        //   echo json_encode($arr3);die;
         for ($i=0;$i<count($arr3);$i++){
             $pic=$arr3[$i]['brand_logo'];
             if(file_exists('./uploads/' . $pic)) {

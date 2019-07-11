@@ -1,0 +1,146 @@
+
+{include file="header"}
+<section class="Hui-article-box">
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 产品分类 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+        <div class="Hui-article">
+            <div class="Huiform">
+                <br>
+                <input type="" id="__token__" name="__token__" value="{$Request.token}" />
+                <input type="text" placeholder="品牌名称" value="" class="input-text" style="width:120px" id="name">
+
+                <button type="button" class="btn btn-success" id="" name="" onClick="add()"><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+                <button type="button" class="btn btn-danger radius" id="" name="" onClick="del1()"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                <!--<input id="ip1" value="一级分类" >-->
+                <input type="text" placeholder="" value="一级分类" class="input-text" style="width:120px" id="ip1">
+
+                <button type="button" class="btn btn-primary radius" id="" name="" onClick="update()"><i class="Hui-iconfont">&#xe6df;</i> 修改</button>
+                <input id="ip2" value="0" hidden>
+            </div>
+            <article class="cl pd-20" id="tree">
+            </article>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    function show() {
+        $.ajax({
+            url: "{:url('brandfen/show')}",
+            success: function (res) {
+                //console.log(res)
+                $("#tree").html(res)
+                //$('ul ul').css('display','none')
+            }
+        })
+    }
+    show()
+
+    $(document).on('click','li',function () {
+        pid_html=$(this).html()
+        pid=$(this).attr("value")
+        $("#ip1").val(pid_html)
+        $("#ip2").val(pid)
+
+        var bool=$(this).next().css('display')
+        console.log(bool)
+        if(bool=='none'){
+            $(this).next().css('display','block')
+        }else {
+            $(this).next().css('display','none')
+        }
+    })
+
+    function add() {
+       var name=$("#name").val()
+       var pid=$("#ip2").val()
+        var __token__=$("#__token__").val()
+        $.ajax({
+            url: "{:url('brandfen/add')}",
+            dataType: 'json',
+            type:"post",
+            data:{
+                name:name,
+                pid:pid,
+                __token__:__token__,
+            },
+            success: function (res) {
+               // console.log(res)
+                if(res.status=='ok'){
+                    SuccessAlert(res.data)
+                }else{
+                    ErroAlert(res.data)
+                }
+                show()
+                token()
+            }
+        })
+    }
+    function del1(){
+        var pid=$("#ip2").val()
+        var __token__=$("#__token__").val()
+        $.ajax({
+            url: "{:url('brandfen/delete')}",
+            dataType: 'json',
+            type:"post",
+            data:{
+                pid:pid,
+                __token__:__token__,
+            },
+            success: function (res) {
+                console.log(res)
+                if(res.status=='ok'){
+                    SuccessAlert(res.data)
+                }else{
+                    ErroAlert(res.data)
+                }
+                show()
+                token()
+            }
+        })
+    }
+     function update() {
+         var cat_name=$("#ip1").val()
+         var cat_id=$("#ip2").val()
+         var __token__=$("#__token__").val()
+         $.ajax({
+             url: "{:url('brandfen/update')}",
+             dataType: 'json',
+             type:"post",
+             data:{
+                 cat_name:cat_name,
+                 cat_id:cat_id,
+                 __token__:__token__,
+             },
+             success: function (res) {
+                 console.log(res)
+                 if(res.status=='ok'){
+                     SuccessAlert(res.data)
+                 }else{
+                     ErroAlert(res.data)
+                 }
+                 show()
+                 token()
+             }
+         })
+     }
+
+    function token() {          //写了一个专门执行token自动生成的方法
+        $.ajax({
+            url:"{:url('Base/commonToken')}",
+            dataType:"json",                        //设置接值格式为json
+            success:function (res) {
+                var __token__=$("#__token__").val(res.token);
+            }
+        })
+    }
+</script>
+
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__STATIC__/admin_index/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__STATIC__/admin_index/lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+{include file="footer"}

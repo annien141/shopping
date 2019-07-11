@@ -347,6 +347,7 @@ class Rbac
      */
     public function can($path)
     {
+        //echo $path;
         if ($this->type == 'jwt') {
             $token = Request::header($this->tokenKey);
             if (empty($token)) {
@@ -354,18 +355,20 @@ class Rbac
             }
             $permissionList = Cache::get($token);
         } else {
+            //echo 111222;exit;
             //获取session中的缓存名
             $cacheName = Session::get('gmars_rbac_permission_name');
             if (empty($cacheName)) {
                 throw new Exception('未查询到登录信息');
             }
-            $permissionList = Cache::get($cacheName);
+            $permissionList = Session::get($cacheName);
+            //dump($permissionList);
         }
 
         if (empty($permissionList)) {
             throw new Exception('您的登录信息已过期请重新登录');
         }
-
+             //echo 222;
         if (isset($permissionList[$path]) && !empty($permissionList[$path])) {
             return true;
         }

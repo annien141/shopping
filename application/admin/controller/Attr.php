@@ -8,47 +8,20 @@ use gmars\rbac\Rbac;
 use Request;
 use app\admin\model\Brand as BrandModel;
 if (!session_id()) session_start();
-class Goods extends Base
+class Attr extends Base
 {
 
-    public function goods()
+    public function list1()
     {
-        $db=Base::connect();
-        $arr = $db->query("select goods_id, sum(kucun) as kucun1 from shuxing group by goods_id ");
-      //  var_dump($arr);die;
-        $this->assign("arr",$arr);
         return $this->fetch();
     }
-    public function shuxing()
-    {
-        $id=input("get.id");
-        $this->assign("id",$id);
-        return $this->fetch();
-    }
-    public function shuxing1()
-    {
-        $id=input("get.id");
+
+    public function show(){
         $db=Base::connect();
-        $arr = $db->query("select * from ecgoods join shuxing on ecgoods.goods_id=shuxing.goods_id where shuxing.goods_id=$id");
+        $arr = $db->query("select attr.name as aname,attr.attrcate_id as aid,attr_cate.name as acname,attr_cate.id as acid,attr_details.attr_id,attr_details.id as adid,attr_details.name as adname from attr join attr_cate on attr.attrcate_id=attr_cate.id join attr_details on attr.id=attr_details.attr_id");
         echo json_encode($arr);
     }
 
-    public function show1(){
-        $db=Base::connect();
-        $arr = $db->query("select * from category ");
-        $js=$this->getTree($arr);
-
-    }
-    public function show2(){
-        $db=Base::connect();
-        $arr = $db->query("select * from brand ");
-        echo json_encode($arr);
-    }
-    public function show3(){
-        $db=Base::connect();
-        $arr = $db->query("select * from category ");
-        echo json_encode($arr);
-    }
     public function addaction(){
         $db=Base::connect();
         $arr2 = $db->query("select * from brand ");
@@ -84,16 +57,7 @@ class Goods extends Base
         echo "</ul>";
         return $list;
     }
-
-
-
-    public function show()
-    {
-        $db=Base::connect();
-        $arr = $db->query("select * from ecgoods join category on ecgoods.cat_id=category.cat_id join brand on ecgoods.brand_id=brand.brand_id order by goods_id");
-        echo json_encode($arr);
-        die;
-    }
+    
     public function add(){
         $db=Base::connect();
         $data=input();
@@ -113,106 +77,45 @@ class Goods extends Base
         die;
     }
 
-    function addshuxing(){
-        $data=input();
-        $id= $data['id'];
-        $shuxing1= $data['shuxing1'];
-        $shuxing2= $data['shuxing2'];
-        $shuxing3= $data['shuxing3'];
-        $kucun= $data['kucun'];
-        $validate = new \app\admin\validate\Permission;
-        if (!$validate->check($data)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-            echo json_encode($arr);
-            die;
-        }
-        if (empty($shuxing1)&&empty($shuxing2)&&empty($shuxing3)){
-            $arr = ['code' => '10', 'status' => 'error', 'data' => "属性不能全为空"];
-            echo json_encode($arr);
-            die;
-        }
-        if(empty($kucun) || (!is_numeric($kucun)) || ($kucun<0)){
-            $arr = ['code' => '10', 'status' => 'error', 'data' => "库存必须为正整数"];
-            echo json_encode($arr);
-            die;
-        }
-        $db=Base::connect();
-        $arr2= $db->query("insert into shuxing(`goods_id`,`shuxing1`,`shuxing2`,`shuxing3`,`kucun`) values($id,'$shuxing1','$shuxing2','$shuxing3',$kucun)");
 
-        $arr = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
-        echo json_encode($arr);
-    }
-
-    function delete(){
-        $data = input();
-        $id = input("post.id");
-        $validate = new \app\admin\validate\Permission;
-        if (!$validate->check($data)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-            echo json_encode($arr);
-            die;
-        }
-
-        $db=Base::connect();
-        $arr2= $db->query("delete from ecgoods where goods_id=$id");
-        $arr3= $db->query("delete from goods_img where goods_id=$id");
-        $arr4= $db->query("delete from shuxing where goods_id=$id");
-        $arr = ['code' => '0', 'status' => 'ok', 'data' => "删除成功"];
-        echo json_encode($arr);
-    }
-
-    function deleteMore(){
-        $data= input();
-        $id= $data['id'];
-        $validate = new \app\admin\validate\Delete;
-        if (!$validate->check($data)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-            echo json_encode($arr);
-            die;
-        }
-        $arr=explode(",",$id);
-        array_shift($arr);
-
-        $id1=implode($arr," or goods_id=");
-        $db=Base::connect();
-        $arr4 =$db->query("delete from ecgoods where goods_id=$id1");
-        $arr3= $db->query("delete from goods_img where goods_id=$id1");
-        $arr2= $db->query("delete from shuxing where goods_id=$id1");
-        $arr1 = ['code' => '0', 'status' => 'ok', 'data' => "删除成功"];
-        echo json_encode($arr1);
-    }
-
-    public function pu_update(){
-        $data= input();
-        $id = $data['id'];
-        $name = $data['name'];
-        $sn = $data['sn'];
-        $price = $data['price'];
-        $cate = $data['cate'];
-        $brand = $data['brand'];
-        $validate = new \app\admin\validate\Permission;
-        if (!$validate->check($data)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-            echo json_encode($arr);
-            die;
-        }
-        if (empty($name)||empty($sn)||empty($price)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => "名称，价格，货号都不能为空"];
-            echo json_encode($arr);
-            die;
-        }
-
-        $db=Base::connect();
-        $arr2= $db->query("select * from ecgoods where goods_name='$name' or goods_sn='$sn' ");
-        if (empty($arr2) || !empty($arr2)&&$arr2[0]['goods_id']==$id) {
-            $arr=$db->query("update ecgoods set goods_name='$name',goods_sn='$sn',shop_price='$price',brand_id='$brand',cat_id='$cate' where goods_id=$id");
-            $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
-            echo json_encode($arr5);
-        } else{
-            $arr3 = ['code' => '0', 'status' => 'error', 'data' => "品牌名或货号已存在"];
-            echo json_encode($arr3);
-        }
-    }
+//    public function pu_update(){
+//        $data= input();
+//        $id = $data['id'];
+//        $name = $data['name'];
+//        $description = $data['description'];
+//        $site = $data['site'];
+//        $validate = new \app\admin\validate\Permission;
+//        if (!$validate->check($data)) {
+//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        if (empty($name)) {
+//            $arr = ['code' => '4', 'status' => 'error', 'data' => "分类名不能为空"];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        if (empty($description)) {
+//            $arr = ['code' => '3', 'status' => 'error', 'data' => "评论不能为空"];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        if (empty($site)) {
+//            $arr = ['code' => '5', 'status' => 'error', 'data' => "网址不能为空"];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        $db=Base::connect();
+//        $arr2= $db->query("select * from brand where brand_name='$name'");
+//        if (empty($arr2) || !empty($arr2)&&$arr2[0]['brand_id']==$id) {
+//            $arr=$db->query("update brand set brand_name='$name',brand_desc='$description',site_url='$site' where brand_id=$id");
+//            $arr5 = ['code' => '1', 'status' => 'ok', 'data' => "修改成功"];
+//            echo json_encode($arr5);
+//        } else{
+//            $arr3 = ['code' => '0', 'status' => 'error', 'data' => "品牌名已存在"];
+//            echo json_encode($arr3);
+//        }
+//    }
 //
 //    public function add()
 //    {

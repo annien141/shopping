@@ -22,56 +22,91 @@ class Attr extends Base
         echo json_encode($arr);
     }
 
-    public function addaction(){
-        $db=Base::connect();
-        $arr2 = $db->query("select * from brand ");
-        $this->assign("brand",$arr2);
-        return $this->fetch("addgoods");
-    }
-    public function detail(){
-        $id=input("get.id");
-        $this->assign("id",$id);
-        return $this->fetch("detail");
-    }
-    private function getTree($arr,$pid = 0, $level = 0){
-        static $list = [];
-        foreach ($arr as $key => $value){
-            //第一次遍历,找到父节点为根节点的节点 也就是pid=0的节点
-            if ($value['parent_id'] == $pid){
-                //父节点为根节点的节点,级别为0，也就是第一级
-                $flg = str_repeat('|--',$level);
-                // 更新 名称值
-                $mid=$value['cat_id'];
-                $value['cat_name'] = $flg.$value['cat_name'];
-                // 输出 名称
-//                    echo $value['name']."<br/>";
-                echo "<option value='$mid'>".$value['cat_name']."</option>";
-                //把数组放到list中
-                $list[] = $value;
-                //把这个节点从数组中移除,减少后续递归消耗
-                unset($arr[$key]);
-                //开始递归,查找父ID为该节点ID的节点,级别则为原级别+1
-                $this->getTree($arr, $value['cat_id'], $level+1);
-            }
-        }
-        echo "</ul>";
-        return $list;
-    }
+//    public function addaction(){
+//        $db=Base::connect();
+//        $arr2 = $db->query("select * from brand ");
+//        $this->assign("brand",$arr2);
+//        return $this->fetch("addgoods");
+//    }
+//    public function detail(){
+//        $id=input("get.id");
+//        $this->assign("id",$id);
+//        return $this->fetch("detail");
+//    }
+//    private function getTree($arr,$pid = 0, $level = 0){
+//        static $list = [];
+//        foreach ($arr as $key => $value){
+//            //第一次遍历,找到父节点为根节点的节点 也就是pid=0的节点
+//            if ($value['parent_id'] == $pid){
+//                //父节点为根节点的节点,级别为0，也就是第一级
+//                $flg = str_repeat('|--',$level);
+//                // 更新 名称值
+//                $mid=$value['cat_id'];
+//                $value['cat_name'] = $flg.$value['cat_name'];
+//                // 输出 名称
+////                    echo $value['name']."<br/>";
+//                echo "<option value='$mid'>".$value['cat_name']."</option>";
+//                //把数组放到list中
+//                $list[] = $value;
+//                //把这个节点从数组中移除,减少后续递归消耗
+//                unset($arr[$key]);
+//                //开始递归,查找父ID为该节点ID的节点,级别则为原级别+1
+//                $this->getTree($arr, $value['cat_id'], $level+1);
+//            }
+//        }
+//        echo "</ul>";
+//        return $list;
+//    }
     
     public function add(){
         $db=Base::connect();
         $data=input();
-        $goods_name=$data['goods_name'];
-        $goods_sn=$data['goods_sn'];
-        $changecategory=$data['changecategory'];
-        $changebrand=$data['changebrand'];
-        $shop_price=$data['shop_price'];
-        if(empty($goods_name)||empty($goods_sn)||empty($changecategory)||empty($changebrand)||empty($shop_price)){
-            $js = ['code' => '7', 'status' => 'error', 'data' => "名称，货号，品牌，分类，市场价都不能为空"];
+        $name=$data['name'];
+        $shuxing1=$data['shuxing1'];
+        $shuxing2=$data['shuxing2'];
+        $validate = new \app\admin\validate\Permission;
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+            echo json_encode($arr);
+            die;
+        }
+        if(empty($name) ||empty($shuxing1) ||empty($shuxing2) ) {
+            $js = ['code' => '13', 'status' => 'error', 'data' => "名称和属性都不能为空"];
             echo json_encode($js);
             die;
         }
-        $arr = $db->query("insert into ecgoods (`goods_name`,`goods_sn`,`brand_id`,`cat_id`, `shop_price`)values('$goods_name','$goods_sn','$changebrand','$changecategory','$shop_price')");
+        $arr = $db->query("select * from attr_cate where name='$name'");
+         if (!empty($arr)){
+             $id1=$arr[0]['id'];
+             $arr2 = $db->query("select * from attr where name='$shuxing1'");
+             if (!empty($arr2)){
+                 $id2=$arr2[0]['id'];
+                 $arr3 = $db->query("select * from attr_details where name='$shuxing2'");
+                 if(!empty($arr3)){
+                     $js = ['code' => '12', 'status' => 'error', 'data' => "已有相同属性"];
+                     echo json_encode($js);
+                     die;
+                 } else{
+                     $db->query("insert into attr_details (`name`,`attr_id`) values('$shuxing2',$id2)");
+                 }
+             }else{
+                 $db->query("insert into attr (`name`,`attrcate_id`) values('$shuxing1',$id1)");
+                 $arr1=$db->query("select * from attr where name='$shuxing1'");
+                 $id2=$arr1[0]['id'];
+
+                 $db->query("insert into attr_details (`name`,`attr_id`) values('$shuxing2',$id2)");
+             }
+         }else{
+             $data1=["name"=>"$name"];
+             $id1 = $db->name('attr_cate')->insertGetId($data1);
+
+             $db->query("insert into attr (`name`,`attrcate_id`) values('$shuxing1',$id1)");
+             $arr1=$db->query("select * from attr where name='$shuxing1'");
+             $id2=$arr1[0]['id'];
+
+             $db->query("insert into attr_details (`name`,`attr_id`) values('$shuxing2',$id2)");
+         }
+
         $js = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
         echo json_encode($js);
         die;
@@ -217,29 +252,22 @@ class Attr extends Base
 //    }
 //
 //
-//    function delete(){
-//        $data = input();
-//        $id = input("post.id");
-//        $validate = new \app\admin\validate\Permission;
-//        if (!$validate->check($data)) {
-//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-//            echo json_encode($arr);
-//            die;
-//        }
-//        $db=Base::connect();
-//        $arr7=$db->query("select * from brand where brand_id=$id");
-//
-//        $pic=$arr7[0]['brand_logo'];
-//        if(file_exists('./uploads/' . $pic)) {
-//            unlink('./uploads/' . $pic);
-//        }
-//
-//        $db=Base::connect();
-//        $arr2= $db->query("delete from brand where brand_id=$id");
-//
-//        $arr = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
-//        echo json_encode($arr);
-//    }
+    function delete(){
+        $data = input();
+        $id = input("post.id");
+        $validate = new \app\admin\validate\Permission;
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+            echo json_encode($arr);
+            die;
+        }
+
+        $db=Base::connect();
+        $arr2= $db->query("delete from attr_details where id=$id");
+
+        $arr = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
+        echo json_encode($arr);
+    }
 //
 //    function deleteMore(){
 //        $data= input();

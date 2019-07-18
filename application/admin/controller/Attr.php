@@ -78,10 +78,10 @@ class Attr extends Base
         $arr = $db->query("select * from attr_cate where name='$name'");
          if (!empty($arr)){
              $id1=$arr[0]['id'];
-             $arr2 = $db->query("select * from attr where name='$shuxing1'");
+             $arr2 = $db->query("select * from attr where name='$shuxing1' and attrcate_id=$id1");
              if (!empty($arr2)){
                  $id2=$arr2[0]['id'];
-                 $arr3 = $db->query("select * from attr_details where name='$shuxing2'");
+                 $arr3 = $db->query("select * from attr_details where name='$shuxing2' and attr_id=$id2");
                  if(!empty($arr3)){
                      $js = ['code' => '12', 'status' => 'error', 'data' => "已有相同属性"];
                      echo json_encode($js);
@@ -91,17 +91,18 @@ class Attr extends Base
                  }
              }else{
                  $db->query("insert into attr (`name`,`attrcate_id`) values('$shuxing1',$id1)");
-                 $arr1=$db->query("select * from attr where name='$shuxing1'");
+                 $arr1=$db->query("select * from attr where name='$shuxing1' and attrcate_id=$id1");
                  $id2=$arr1[0]['id'];
 
                  $db->query("insert into attr_details (`name`,`attr_id`) values('$shuxing2',$id2)");
              }
          }else{
-             $data1=["name"=>"$name"];
-             $id1 = $db->name('attr_cate')->insertGetId($data1);
+             $db->query("insert into attr_cate (`name`) values('$name')");
+             $a1=$db->query("select * from attr_cate where name='$name'");
+             $id1=$a1[0]['id'];
 
              $db->query("insert into attr (`name`,`attrcate_id`) values('$shuxing1',$id1)");
-             $arr1=$db->query("select * from attr where name='$shuxing1'");
+             $arr1=$db->query("select * from attr where attrcate_id='$id1'");
              $id2=$arr1[0]['id'];
 
              $db->query("insert into attr_details (`name`,`attr_id`) values('$shuxing2',$id2)");

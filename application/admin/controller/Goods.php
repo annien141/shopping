@@ -13,16 +13,28 @@ class Goods extends Base
 
     public function goods()
     {
-        $db=Base::connect();
-        $arr = $db->query("select goods_id, sum(kucun) as kucun1 from shuxing group by goods_id ");
-      //  var_dump($arr);die;
-        $this->assign("arr",$arr);
+//        $db=Base::connect();
+//        $arr = $db->query("select goods_id, sum(kucun) as kucun1 from shuxing group by goods_id ");
+//      //  var_dump($arr);die;
+//        $this->assign("arr",$arr);
         return $this->fetch();
     }
+
     public function shuxing()
     {
         $id=input("get.id");
+        $db=Base::connect();
+
+        $arr1=$db->query("select * from ecgoods where goods_id=$id");
+        $fenlei=$arr1[0]['fenlei'];
+        if (empty($fenlei)){
+            $fenlei=0;
+        }
+
+        $attr_cate = $db->query("select * from attr_cate");
         $this->assign("id",$id);
+        $this->assign("fenlei",$fenlei);
+        $this->assign("attr_cate",$attr_cate);
         return $this->fetch();
     }
     public function shuxing1()
@@ -94,58 +106,110 @@ class Goods extends Base
         echo json_encode($arr);
         die;
     }
-    public function add(){
+//    public function add(){
+//        $db=Base::connect();
+//        $data=input();
+//        $id=$data['id'];
+//        $attr_id=$data['attr_id'];
+//        $validate = new \app\admin\validate\Permission;
+//        if (!$validate->check($data)) {
+//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        $arr=explode(",",$attr_id);
+//        array_shift($arr);
+//        var_dump($arr);die;
+//        $arr1 = ['code' => '1', 'status' => 'ok', 'data' => "添加成功"];
+//        echo json_encode($arr1);
+//        die;
+//    }
+    function add1(){
         $db=Base::connect();
         $data=input();
-        $goods_name=$data['goods_name'];
-        $goods_sn=$data['goods_sn'];
-        $changecategory=$data['changecategory'];
-        $changebrand=$data['changebrand'];
-        $shop_price=$data['shop_price'];
-        if(empty($goods_name)||empty($goods_sn)||empty($changecategory)||empty($changebrand)||empty($shop_price)){
-            $js = ['code' => '7', 'status' => 'error', 'data' => "名称，货号，品牌，分类，市场价都不能为空"];
-            echo json_encode($js);
-            die;
-        }
-        $arr = $db->query("insert into ecgoods (`goods_name`,`goods_sn`,`brand_id`,`cat_id`, `shop_price`)values('$goods_name','$goods_sn','$changebrand','$changecategory','$shop_price')");
-        $js = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
-        echo json_encode($js);
-        die;
-    }
-
-    function addshuxing(){
-        $data=input();
-        $id= $data['id'];
-        $shuxing1= $data['shuxing1'];
-        $shuxing2= $data['shuxing2'];
-        $shuxing3= $data['shuxing3'];
-        $kucun= $data['kucun'];
+        $id=input("post.id");
+        $shuxing1=input("post.shuxing1");
+        $arr=input("post.arr");
+        $arr=array_unique($arr);
+        array_pop($arr);
         $validate = new \app\admin\validate\Permission;
         if (!$validate->check($data)) {
             $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
             echo json_encode($arr);
             die;
         }
-        if (empty($shuxing1)&&empty($shuxing2)&&empty($shuxing3)){
-            $arr = ['code' => '10', 'status' => 'error', 'data' => "属性不能全为空"];
-            echo json_encode($arr);
-            die;
+        $arr1 = $db->query("select * from shuxing where goods_id='$id'");
+        if(empty($arr1)) {
+            $arr1 = $db->query("update ecgoods set fenlei='$shuxing1' where goods_id=$id");
+            $count = 0;
+            foreach ($arr as $key => $value) {
+                $shuxing2 = substr($value, 0, strpos($value, ':'));
+                $shuxing3 = substr($value, strpos($value, ':') + 1);
+
+                $arr1 = $db->query("select * from shuxing where goods_id='$id' and shuxing2='$shuxing2' and shuxing3='$shuxing3'");
+                if (empty($arr1)) {
+                    $arr3 = $db->query("insert into shuxing (`goods_id`,`shuxing2`,`shuxing3`) values('$id','$shuxing2','$shuxing3')");
+                    $count++;
+                }
+            }
+            $arr4 = ['code' => '0', 'status' => 'ok', 'data' => "添加了分类！添加了".$count."条数据"];
+            echo json_encode($arr4);
+        }else{
+            $arr1 = $db->query("update ecgoods set fenlei='$shuxing1' where goods_id=$id");
+            $count = 0;
+            foreach ($arr as $key => $value) {
+                $shuxing2 = substr($value, 0, strpos($value, ':'));
+                $shuxing3 = substr($value, strpos($value, ':') + 1);
+
+                $arr1 = $db->query("select * from shuxing where goods_id='$id' and shuxing2='$shuxing2' and shuxing3='$shuxing3'");
+                if (empty($arr1)) {
+                    $arr3 = $db->query("insert into shuxing (`goods_id`,`shuxing2`,`shuxing3`) values('$id','$shuxing2','$shuxing3')");
+                    $count++;
+                }
+            }
+            $arr4 = ['code' => '0', 'status' => 'warn', 'data' => "添加了".$count."条数据"];
+            echo json_encode($arr4);
         }
-        if(empty($kucun) || (!is_numeric($kucun)) || ($kucun<0)){
-            $arr = ['code' => '10', 'status' => 'error', 'data' => "库存必须为正整数"];
+       // var_dump($shuxing2,$shuxing3);die;
+
+
+
+
+//        $arr = $db->query("select * from shuxing where goods_id='$id' and shuxing2='$shuxing4' and shuxing3='$shuxing5'");
+//        if(empty($arr)){
+//            $arr = $db->query("insert into shuxing (`goods_id`,`shuxing2`,`shuxing3`) values('$id','$shuxing2','$shuxing3')");
+//            $arr3 = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
+//            echo json_encode($arr3);
+//        }else{
+//            $arr3 = ['code' => '12', 'status' => 'error', 'data' => "属性已存在"];
+//            echo json_encode($arr3);
+//        }
+
+        
+    }
+
+    function addshuxing(){
+        $data=input();
+        $arr=input("post.arr");
+        $id=input("post.id");
+        $arr=array_unique($arr);
+        array_pop($arr);
+        var_dump($arr);die;
+        $validate = new \app\admin\validate\Permission;
+        if (!$validate->check($data)) {
+            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
             echo json_encode($arr);
             die;
         }
         $db=Base::connect();
-        $arr2= $db->query("insert into shuxing(`goods_id`,`shuxing1`,`shuxing2`,`shuxing3`,`kucun`) values($id,'$shuxing1','$shuxing2','$shuxing3',$kucun)");
-
-        $arr = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
-        echo json_encode($arr);
+        $arr2= $db->query("delete from ecgoods where goods_id=$id");
     }
 
     function delete(){
         $data = input();
         $id = input("post.id");
+        $goods_id = input("post.id1");
+     //   var_dump($goods_id);die;
         $validate = new \app\admin\validate\Permission;
         if (!$validate->check($data)) {
             $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
@@ -154,9 +218,16 @@ class Goods extends Base
         }
 
         $db=Base::connect();
-        $arr2= $db->query("delete from ecgoods where goods_id=$id");
-        $arr3= $db->query("delete from goods_img where goods_id=$id");
-        $arr4= $db->query("delete from shuxing where goods_id=$id");
+        $arr4= $db->query("delete from shuxing where sid=$id");
+
+        $arr5= $db->query("select * from shuxing where goods_id=$goods_id");
+       // var_dump($arr5);die;
+        if(empty($arr5)){
+            $arr6= $db->query("update ecgoods set fenlei=0 where goods_id=$goods_id");
+            $arr = ['code' => '15', 'status' => 'warn', 'data' => "删除最后一条分类"];
+            echo json_encode($arr);
+            die;
+        }
         $arr = ['code' => '0', 'status' => 'ok', 'data' => "删除成功"];
         echo json_encode($arr);
     }
@@ -213,7 +284,19 @@ class Goods extends Base
             echo json_encode($arr3);
         }
     }
-//
+
+    function select11(){
+        $id=input("post.id");
+        $db=Base::connect();
+        $attr = $db->query("select * from attr where attrcate_id=$id");
+        echo json_encode($attr);
+    }
+    function select12(){
+        $id=input("post.id");
+        $db=Base::connect();
+        $attr = $db->query("select * from attr_details where attr_id=$id");
+        echo json_encode($attr);
+    }
 //    public function add()
 //    {
 //

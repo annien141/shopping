@@ -38,6 +38,12 @@ function SuccessAlert(e) {
         color: '#777'
     });
 }
+function WarnAlert(e) {
+   var index = layer.alert(e, { icon: 7, time: 1500, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+   layer.style(index, {
+    color: '#777'
+   });
+}
 
 //Ajax 错误返回处理
 function AjaxErro(e) {

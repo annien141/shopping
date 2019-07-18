@@ -13,37 +13,11 @@
             <div class="text-c">
                 <div class="Huiform">
                     <input type="hidden" id="__token__" name="__token__" value="{$Request.token}" />
-                    <!--<input type="text" placeholder="属性1" value="" class="input-text" style="width:120px" id="shuxing1">-->
-                    <!--<input type="text" placeholder="属性2" value="" class="input-text" style="width:120px" id="shuxing2">-->
-                    <!--<input type="text" placeholder="属性3" value="" class="input-text" style="width:120px" id="shuxing3">-->
-                    <!--<input type="text" placeholder="库存" value="" class="input-text" style="width:120px" id="kucun">-->
-                    <!--<button type="button" class="btn btn-success" id="" name="" onClick="add()"><i class="Hui-iconfont">&#xe600;</i> 添加属性</button>-->
 
-                    <select onclick="select11()" id="select11" >
-                        <option value="0">请选择</option>
-                        {volist name="attr_cate" id="attr_cate"}
-                        {if $attr_cate.name==$fenlei}
-                        <option value="{$attr_cate.id},{$attr_cate.name}"  selected>{$attr_cate.name}</option>
-                           {else}
-                        <option value="{$attr_cate.id},{$attr_cate.name}"  disabled>{$attr_cate.name}</option>
-                        {/if}
-                        {/volist}
-                    </select>
-
-                    <select onchange="select12()" id="select12">
-
-                    </select >
-
-                    <select onchange="select13()" id="select13" >
-
-                    </select>
-                    <!--<input type="text" placeholder="库存" value="" class="input-text" style="width:120px" id="kucun">-->
-                    <span>
-                    <button type="button" class="btn btn-success" id="" name="" onClick="add()" ><i class="Hui-iconfont">&#xe600;</i> 添加属性</button>
-                    <button onclick="clear1()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe60b;</i> 清除</button>  </span>
+                    <button type="button" class="btn btn-success" id="" name="" onClick="add()" ><i class="Hui-iconfont">&#xe600;</i> 生成货品</button>
+                    <button onclick="clear1()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe60b;</i> 清除</button>  
                     <br>
-                    <span id="kucun"></span>
-                    <span id="kucun1">可一键添加属性</span>
+
                 </div>
             </div>
             <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="{:url('goods/goods')}" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe603;</i> 返回首页</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
@@ -54,9 +28,10 @@
                         <th width="25"><input type="checkbox" name="" value=""></th>
                         <th width="70">ID</th>
                         <th width="100">产品名称</th>
-                        <th width="100">属性1</th>
-                        <th width="100">属性2</th>
-                        <th width="100">操作</th>
+                        <th width="120">属性</th>
+                        <th width="80">价格</th>
+                        <th width="80">库存</th>
+                        <th width="80">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -144,8 +119,8 @@
     shuxing1=""
     function show() {
         $.ajax({
-            url: "{:url('goods/shuxing1')}",
-            dataType: 'json',
+            url: "{:url('huopin/show')}",
+         //   dataType: 'json',
             data:{
                 id:{$id},
             },
@@ -251,7 +226,7 @@
     //
     function select12() {
         var id3=$('#select12').val()
-       // console.log(id3)
+        // console.log(id3)
         if(id3==0){
             ErroAlert("请选择属性")
             document.getElementById("kucun").innerHTML=""
@@ -282,7 +257,7 @@
     function select13() {
         var id3=$('#select13').val()
         if(id3==0){
-           ErroAlert("请选择属性")
+            ErroAlert("请选择属性")
             document.getElementById("kucun").innerHTML=""
             document.getElementById("kucun1").innerHTML="可一键添加属性"
             return false
@@ -321,9 +296,12 @@
             type: "post",
             dataType: "json",
             success: function (res) {
-           //     console.log(res)
+                //     console.log(res)
                 if(res.status=="ok"){
-                    WarnAlert(res.data)
+                    var index = layer.alert(res.data, { icon: 7, time: 1500, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
+                    layer.style(index, {
+                        color: '#777'
+                    });
                     history.go(0)
                 }else{
                     SuccessAlert(res.data)
@@ -360,71 +338,6 @@
             }
         })
     }
-
-    // function pidelete(){
-    //     var __token__=$("#__token__").val()
-    //     var box=$(".mycheck:checked")
-    //     //   console.log(box)
-    //     if (box.length==0){
-    //         ErroAlert("至少选择一项")
-    //     }else{
-    //         var id=''
-    //         for (var i=0;i<box.length;i++){
-    //             id=id+','+box[i].value
-    //         }
-    //         console.log(id)
-    //         var index = layer.confirm("确认删除?", { icon: 7,  offset: 't', closeBtn: 2, title: '警告', btn: ["确认","关闭"], anim: 2, shade: 0 },function(){
-    //             $.ajax({
-    //                 url: "{:url('brand/deleteMore')}",
-    //                 data: {
-    //                     id: id,
-    //                     __token__:__token__
-    //                 },
-    //                 type: "post",
-    //                 dataType: "json",
-    //                 success: function (res) {
-    //                     console.log(res)
-    //                     if(res.status=="ok"){
-    //                         layer.msg(res.data, {icon: 1,time:2000});
-    //                         show()
-    //                     }
-    //                     token()
-    //                 }
-    //             })
-    //         });
-    //         layer.style(index, {
-    //             color: '#777'
-    //         });
-    //     }
-    // }
-
-    // function add() {
-    //     var kucun=$("#kucun").val()
-    //     var id={$id};
-    //     var __token__=$("#__token__").val()
-    //     var arr = all.split(',')
-    //     console.log(arr)
-    //     $.ajax({
-    //         url: "{:url('goods/addshuxing')}",
-    //     //    dataType: 'json',
-    //         type:"post",
-    //         data:{
-    //             arr:arr,
-    //             id:id,
-    //             __token__:__token__,
-    //         },
-    //         success: function (res) {
-    //             console.log(res)
-    //             if(res.status=='ok'){
-    //                 SuccessAlert(res.data)
-    //             }else{
-    //                 ErroAlert(res.data)
-    //             }
-    //             show()
-    //             token()
-    //         }
-    //     })
-    // }
 
     function modaldemo(id,name,description,site){
         $("#modal-demo").modal("show")

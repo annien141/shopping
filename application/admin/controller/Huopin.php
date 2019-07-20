@@ -21,91 +21,118 @@ class Huopin extends Base
     public function show(){
         $id=input("get.id");
         $db=Base::connect();
-        $arr1=$db->query("select * from shuxing where goods_id=$id");
-       // var_dump($arr1);die;
-        $shuxing2=[];
-        $shuxing3=[];
-        foreach ($arr1 as $key=>$value){
-            $shuxing2[]=$value['shuxing2'];
-            $shuxing3[]=$value['shuxing3'];
-        }
-        var_dump($shuxing3);die;
-        $this->assign("arr1",$arr1);
 
-        $arr=$db->query("select * from huopin join ecgoods where ecgoods.goods_id=huopin.goods_id");
+        $arr=$db->query("select * from huopin join ecgoods on ecgoods.goods_id=huopin.goods_id where huopin.goods_id=$id");
         echo json_encode($arr);
         die;
     }
-//    public function show()
-//    {
-//        $sql="select p.id,p.name,p.description,p.path,p.category_id,p_c.name as p_c_name from permission as p join permission_category as p_c on p.category_id=p_c.id order by id ";
-//        $arr=Db::query($sql);
-//        $newarr=[];
-//        foreach ($arr as $key=>$value){
-//            $newarr[$value['p_c_name']][]=$value;
-//        }
-//        echo json_encode($newarr);
-//    }
 
-    public function showrole()
-    {
-        $sql="select * from role";
-        $arr=Db::query($sql);
-        echo json_encode($arr);
-    }
-    public function showupdate()
-    {
+    public function addhuopin(){
         $id=input("post.id");
-        $sql="select role_permission.permission_id from role_permission join role on role.id=role_permission.role_id where role.id=$id";
-        $arr=Db::query($sql);
-
-        echo json_encode($arr);
+   //     var_dump($id);die;
+        $db=Base::connect();
+        $arr1=$db->query("select * from shuxing where goods_id=$id");
+        // var_dump($arr1);die;
+//        $shuxing2=[];
+//        $shuxing3=[];
+        $newarr=[];
+        foreach ($arr1 as $key=>$value){
+            $newarr[$value['shuxing2']][]=$value['shuxing3'];
+        }
+        echo json_encode($newarr);
     }
-
-    public function add()
+    public function add_action()
     {
-        $data = input();
-        $name = $data['name'];
-        $description = $data['description'];
-        $permission_id=$data['permission_id'];
+        $db=Base::connect();
+        $data=input();
+        $id=input("post.id");
+        $price=input("post.price");
+        $kucun=input("post.kucun");
+        $arr=input("post.arr");
         $validate = new \app\admin\validate\Permission;
         if (!$validate->check($data)) {
             $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
             echo json_encode($arr);
             die;
         }
-
-        if (empty($data['name'])) {
-            $arr = ['code' => '3', 'status' => 'error', 'data' => "角色不能为空"];
+        if(empty($price) || empty($kucun) || empty($arr)){
+            $arr = ['code' => '16', 'status' => 'error', 'data' => "价格，库存，属性都不能为空"];
             echo json_encode($arr);
             die;
         }
-        if (empty($permission_id)) {
-            $arr = ['code' => '3', 'status' => 'error', 'data' => "权限不能为空"];
+
+        $str=implode("-",$arr);
+        $sql=$db->query("select * from huopin where shuxing='$str'");
+        if(!empty($sql)){
+            $arr = ['code' => '16', 'status' => 'error', 'data' => "已有相同货品"];
             echo json_encode($arr);
             die;
         }
-        $rabc=new Rbac();
-        $sql="select * from role where name='$name'";
-        $getarr =Db::query($sql);
-
-        $arr=explode(",",$permission_id);
-        array_shift($arr);
-        $permission_id=implode(",",$arr);
-        if (empty($getarr)) {
-            $rabc->createRole([
-                'name'=>$name,
-                'description'=>$description,
-                'status'=>1
-            ],$permission_id);
-            $arr = ['code' => '1', 'status' => 'ok', 'data' => "添加成功"];
-        } else {
-            $arr = ['code' => '0', 'status' => 'error', 'data' => "角色已存在"];
-        }
+        $db->query("insert into huopin (`goods_id`,`shuxing`,`price`,`kucun`) values('$id','$str','$price','$kucun')");
+        $arr = ['code' => '0', 'status' => 'ok', 'data' => "添加成功"];
         echo json_encode($arr);
     }
+
+//    public function showrole()
+//    {
+//        $sql="select * from role";
+//        $arr=Db::query($sql);
+//        echo json_encode($arr);
+//    }
+//    public function showupdate()
+//    {
+//        $id=input("post.id");
+//        $sql="select role_permission.permission_id from role_permission join role on role.id=role_permission.role_id where role.id=$id";
+//        $arr=Db::query($sql);
 //
+//        echo json_encode($arr);
+//    }
+//
+//    public function add()
+//    {
+//        $data = input();
+//        $name = $data['name'];
+//        $description = $data['description'];
+//        $permission_id=$data['permission_id'];
+//        $validate = new \app\admin\validate\Permission;
+//        if (!$validate->check($data)) {
+//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+//            echo json_encode($arr);
+//            die;
+//        }
+//
+//        if (empty($data['name'])) {
+//            $arr = ['code' => '3', 'status' => 'error', 'data' => "角色不能为空"];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        if (empty($permission_id)) {
+//            $arr = ['code' => '3', 'status' => 'error', 'data' => "权限不能为空"];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        $rabc=new Rbac();
+//        $sql="select * from role where name='$name'";
+//        $getarr =Db::query($sql);
+//
+//        $arr=explode(",",$permission_id);
+//        array_shift($arr);
+//        $permission_id=implode(",",$arr);
+//        if (empty($getarr)) {
+//            $rabc->createRole([
+//                'name'=>$name,
+//                'description'=>$description,
+//                'status'=>1
+//            ],$permission_id);
+//            $arr = ['code' => '1', 'status' => 'ok', 'data' => "添加成功"];
+//        } else {
+//            $arr = ['code' => '0', 'status' => 'error', 'data' => "角色已存在"];
+//        }
+//        echo json_encode($arr);
+//    }
+////
     function delete(){
+        $db=Base::connect();
         $id = input("post.id");
         $data = input();
         $validate = new \app\admin\validate\Delete();
@@ -115,32 +142,31 @@ class Huopin extends Base
             die;
         }
 
-        $arr1 =Db::query("delete from role where id=$id");
-        $arr2 =Db::query("delete from role_permission where role_id=$id");
+        $arr1 =$db->query("delete from huopin where hid=$id");
 
         $arr = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
         echo json_encode($arr);
     }
+////
+//    function deleteMore(){
+//        $id = input("post.id");
+//        $data= input();
+//        $validate = new \app\admin\validate\Delete;
+//        if (!$validate->check($data)) {
+//            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
+//            echo json_encode($arr);
+//            die;
+//        }
+//        $arr=explode(",",$id);
+//        array_shift($arr);
+//        $id1=implode($arr," or id=");
+//        $id2=implode($arr," or role_id=");
+//        $arr3 =Db::query("delete from role where id=$id1");
 //
-    function deleteMore(){
-        $id = input("post.id");
-        $data= input();
-        $validate = new \app\admin\validate\Delete;
-        if (!$validate->check($data)) {
-            $arr = ['code' => '4', 'status' => 'error', 'data' => $validate->getError()];
-            echo json_encode($arr);
-            die;
-        }
-        $arr=explode(",",$id);
-        array_shift($arr);
-        $id1=implode($arr," or id=");
-        $id2=implode($arr," or role_id=");
-        $arr3 =Db::query("delete from role where id=$id1");
-
-        $arr4 =Db::query("delete from role_permission where role_id=$id2");
-        $arr1 = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
-        echo json_encode($arr1);
-    }
+//        $arr4 =Db::query("delete from role_permission where role_id=$id2");
+//        $arr1 = ['code' => '1', 'status' => 'ok', 'data' => "删除成功"];
+//        echo json_encode($arr1);
+//    }
 //
 //    function updateName(){
 //        $id = input("post.id");

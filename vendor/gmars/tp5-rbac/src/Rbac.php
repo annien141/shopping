@@ -335,6 +335,7 @@ class Rbac
             throw new Exception('参数错误');
         }
         $model = new Permission($this->db);
+        //查询出所有权限，并存到缓存中1个小时（文件缓存）
         $permission = $model->userPermission($id, $timeOut);
         return $permission;
     }
@@ -347,7 +348,6 @@ class Rbac
      */
     public function can($path)
     {
-        //echo $path;
         if ($this->type == 'jwt') {
             $token = Request::header($this->tokenKey);
             if (empty($token)) {
@@ -355,20 +355,20 @@ class Rbac
             }
             $permissionList = Cache::get($token);
         } else {
-            //echo 111222;exit;
             //获取session中的缓存名
             $cacheName = Session::get('gmars_rbac_permission_name');
             if (empty($cacheName)) {
                 throw new Exception('未查询到登录信息');
             }
+            //3.验证的时候从session中读取权限列表
+            //$permissionList = Cache::get($cacheName);
             $permissionList = Session::get($cacheName);
-            //dump($permissionList);
         }
 
         if (empty($permissionList)) {
             throw new Exception('您的登录信息已过期请重新登录');
         }
-             //echo 222;
+
         if (isset($permissionList[$path]) && !empty($permissionList[$path])) {
             return true;
         }

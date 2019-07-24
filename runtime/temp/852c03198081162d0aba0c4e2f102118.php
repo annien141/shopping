@@ -1,4 +1,4 @@
-<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1563239038;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
+<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1563767387;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
 
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
@@ -105,6 +105,7 @@
                     <li><a href="<?php echo url('brandfen/brandfen'); ?>" title="分类管理">分类管理</a></li>
                     <li><a href="<?php echo url('goods/goods'); ?>" title="产品管理">产品管理</a></li>
                     <li><a href="<?php echo url('attr/list1'); ?>" title="产品属性">产品属性</a></li>
+                    <li><a href="<?php echo url('order/list1'); ?>" title="订单">订单管理</a></li>
                 </ul>
             </dd>
         </dl>

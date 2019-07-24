@@ -93,6 +93,8 @@ class Permission extends Base
         if (empty($userId)) {
             throw new Exception('参数错误');
         }
+        //1.用session存储，不使用cache，文件缓存
+        //$permission = Cache::get($this->_permissionCachePrefix . $userId);
         $permission = Session::get($this->_permissionCachePrefix . $userId);
         if (!empty($permission)) {
             return $permission;
@@ -108,6 +110,8 @@ class Permission extends Base
                 $newPermission[$v['path']] = $v;
             }
         }
+        //2.用session存储，不使用cache，文件缓存
+        //Cache::set($this->_permissionCachePrefix . $userId, $newPermission, $timeOut);
         Session::set($this->_permissionCachePrefix . $userId, $newPermission);
         Session::set('gmars_rbac_permission_name', $this->_permissionCachePrefix . $userId);
         return $newPermission;

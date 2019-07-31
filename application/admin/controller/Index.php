@@ -11,7 +11,7 @@ class index extends Common
     {
         $sql="select * from admin";
         $arr=Db::query($sql);
-        echo "123";
+//        echo "123";
         return view('index',["arr"=>$arr]);
     }
 

@@ -7,6 +7,7 @@ use think\Controller;
 use gmars\rbac\Rbac;
 use Request;
 use app\admin\model\Brand as BrandModel;
+use think\facade\Cache;
 if (!session_id()) session_start();
 class Goods extends Base
 {
@@ -101,10 +102,59 @@ class Goods extends Base
 
     public function show()
     {
+        $redis=new \redis();
+        $redis->connect('127.0.0.1',6379);
+        $select=input("post.select");
+    //    var_dump($select);die;
         $db=Base::connect();
-        $arr = $db->query("select * from ecgoods join category on ecgoods.cat_id=category.cat_id join brand on ecgoods.brand_id=brand.brand_id order by goods_id");
-        echo json_encode($arr);
-        die;
+        if(empty($select)){
+            $arr = $db->query("select * from ecgoods join category on ecgoods.cat_id=category.cat_id join brand on ecgoods.brand_id=brand.brand_id order by goods_id");
+            $arr2=$redis->ZREVRANGE("key101",0, -1);
+            //    var_dump($arr2);die;
+            if(count($arr2)<=3){
+                $k=count($arr2);
+            } else{
+                $k=3;
+            }
+            $a='';
+            for($i=0;$i<=$k;$i++){
+                $a=$a.$arr2[$i].",";
+            }
+            $arr1=["data"=>$arr,"data1"=>$a];
+            echo json_encode($arr1);
+        } else{
+            $redis->hSetnx("key1","$select",0);
+            $redis->hIncrBy("key1","$select",1);
+            $count=$redis->hGet("key1","$select");
+          //  var_dump($count,$select);die;
+            $arr3=$redis->zAdd("key101","$count","$select");
+            $arr2=$redis->ZREVRANGE("key101",0, -1);
+        //    var_dump($arr2);die;
+            if(count($arr2)<=3){
+                $k=count($arr2);
+            } else{
+                $k=3;
+            }
+            $a='';
+            for($i=0;$i<=$k;$i++){
+               $a=$a.$arr2[$i].",";
+            }
+            if($count<5){
+                $arr = $db->query("select * from ecgoods join category on ecgoods.cat_id=category.cat_id join brand on ecgoods.brand_id=brand.brand_id where ecgoods.goods_name like('%$select%') order by goods_id");
+                $arr1=["data"=>$arr,"data1"=>$a];
+                echo json_encode($arr1);
+            }else if($count==5){
+                $arr = $db->query("select * from ecgoods join category on ecgoods.cat_id=category.cat_id join brand on ecgoods.brand_id=brand.brand_id where ecgoods.goods_name like('%$select%') order by goods_id");
+                Cache::set("$select",$arr);  
+                $arr1=["data"=>$arr,"data1"=>$a];
+                echo json_encode($arr1);
+            }else{
+                $arr=Cache::get("$select");
+                $arr1=["data"=>$arr,"data1"=>$a];
+                echo json_encode($arr1);
+            }
+        }
+
     }
 //    public function add(){
 //        $db=Base::connect();

@@ -6,9 +6,20 @@ use think\facade\Session;
 use think\Controller;
 use Request;
 use gmars\rbac\Rbac;
+use Cache;
 class Common extends Controller
 {
+
     function initialize(){
+
+        $redis=new \redis();
+        $redis->connect('127.0.0.1',6379);
+        $redis->setnx('num',1);
+        $redis->incr('num');
+        $cishu=$redis->get('num');
+        $this->assign('cishu',$cishu);
+
+
         //$name=isset($_SESSION['name'])?$_SESSION['name']:"";
         $name=Session::get('name');
         if (empty($name)){

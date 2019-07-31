@@ -1,4 +1,4 @@
-<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1561109067;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1563767387;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
+<?php /*a:3:{s:79:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\index\index.html";i:1564377425;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\header.html";i:1564489836;s:74:"D:\01\phpstudy\PHPTutorial\WWW\shopping\application\admin\view\footer.html";i:1561108986;}*/ ?>
 
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
@@ -175,6 +175,7 @@
 <!--/_menu 作为公共模版分离出去-->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/shopping/public/static/admin_login/js/Treatment.js" type="text/javascript"></script>
+<script src="/shopping/public/static/vue.js"></script>
 <section class="Hui-article-box">
     <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a>
         <span class="c-999 en">&gt;</span>
@@ -185,7 +186,7 @@
             <p class="f-20 text-success">欢迎使用H-ui.admin
                 <span class="f-14">v2.3</span>
                 后台模版！</p>
-            <p>登录次数：18 </p>
+            <p>登录次数：<?php echo htmlentities($cishu); ?> </p>
             <p>上次登录IP：222.35.131.79.1  上次登录时间：2014-6-14 11:19:55</p>
             <table class="table table-border table-bordered table-bg">
                 <thead>
